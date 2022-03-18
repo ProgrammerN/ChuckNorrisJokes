@@ -8,6 +8,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Main activity for the Chuck Norris Jokes APP. Holds the Navigation Host Fragment.
+ */
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 

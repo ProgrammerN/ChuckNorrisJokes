@@ -21,6 +21,10 @@ import com.dvt.chucknorrisjokes.extentions.onQueryTextChanged
 import com.dvt.chucknorrisjokes.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Display a grid of [Joke]s. User can swipe up to view more if there is any.
+ */
+
 @AndroidEntryPoint
 class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.ConditionViewPager {
 

@@ -6,6 +6,17 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * Immutable Parcelable model class for a Favorite Joke. Also serves as room entity for our database
+ *
+ * @param categories joke category
+ * @param createdAt time joke was created
+ * @param iconUrl joke icon
+ * @param id id of the joke
+ * @param url url
+ * @param value  the joke itself
+ */
+
 @Entity(tableName = "jokes_table")
 @Parcelize
 data class Joke(

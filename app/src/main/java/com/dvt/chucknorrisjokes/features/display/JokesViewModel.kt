@@ -12,6 +12,10 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for the all the Jokes.
+ */
+
 @HiltViewModel
 class JokesViewModel @Inject constructor(repository: JokesRepository) : ViewModel() {
 

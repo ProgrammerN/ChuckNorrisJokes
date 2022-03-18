@@ -6,6 +6,10 @@ import com.dvt.chucknorrisjokes.data.JokesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+/**
+ * ViewModel for the all the categories.
+ */
+
 @HiltViewModel
 class CategoriesViewModel @Inject constructor(repository: JokesRepository) : ViewModel() {
 

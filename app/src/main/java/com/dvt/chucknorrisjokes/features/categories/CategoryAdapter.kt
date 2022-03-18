@@ -9,6 +9,9 @@ import com.dvt.chucknorrisjokes.data.Category
 import com.dvt.chucknorrisjokes.databinding.CategoryItemBinding
 import com.dvt.chucknorrisjokes.util.RandomColor
 
+/**
+ * Adapter for the category list. Has a reference to the [OnItemClickListener] to listen to click events.
+ */
 class CategoryAdapter(private val listener: OnItemClickListener) : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {

@@ -9,6 +9,9 @@ import com.dvt.chucknorrisjokes.data.Joke
 import com.dvt.chucknorrisjokes.databinding.JokeItemBinding
 import com.dvt.chucknorrisjokes.util.RandomColor
 
+/**
+ * View Pager Adapter for a single jokes or list of jokes
+ */
 class ViewPagerAdapter(private val condition: ConditionViewPager) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
 
     private lateinit var dataValue: List<Joke>

@@ -5,6 +5,12 @@ import com.dvt.chucknorrisjokes.api.JokesApiService
 import com.dvt.chucknorrisjokes.util.networkBoundResource
 import javax.inject.Inject
 
+/**
+ * Concrete implementation of a JokesDatabase & JokesApiService.
+ * Gets available jokes either from the cache(Local Database) or From The Network
+ * Save results from remote server to local room database fro later use as cache
+ * In the event there is no network result is fetched from local cache
+ */
 class JokesRepository @Inject constructor(private val apiService: JokesApiService, private val db: JokesDatabase) {
 
     private val jokesJokeDao = db.JokeDao()

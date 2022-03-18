@@ -2,6 +2,10 @@ package com.dvt.chucknorrisjokes.util
 
 import com.dvt.chucknorrisjokes.R
 
+/**
+ * Return a random color
+ */
+
 object RandomColor {
     fun randomBackgroundColor(): Int =
         listOf(

@@ -5,6 +5,12 @@ import com.dvt.chucknorrisjokes.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+/**
+ * Use Hilt Dependency Injection
+ *
+ * Also, sets up Timber in the DEBUG BuildConfig. Read Timber's documentation for production setups.
+ */
+
 @HiltAndroidApp
 class JokesApplication : Application() {
 

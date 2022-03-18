@@ -4,6 +4,10 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
+/**
+ * Converter class to help room express our data in the room database
+ *
+ */
 class Converters {
 
     @TypeConverter

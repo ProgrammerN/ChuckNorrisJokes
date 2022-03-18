@@ -11,10 +11,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dvt.chucknorrisjokes.R
 import com.dvt.chucknorrisjokes.data.Category
+import com.dvt.chucknorrisjokes.data.Joke
 import com.dvt.chucknorrisjokes.databinding.FragmentCategoriesBinding
 import com.dvt.chucknorrisjokes.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Display a grid of [Category]s. User can select a category
+ */
 @AndroidEntryPoint
 class CategoriesFragment : Fragment(R.layout.fragment_categories), CategoryAdapter.OnItemClickListener {
 

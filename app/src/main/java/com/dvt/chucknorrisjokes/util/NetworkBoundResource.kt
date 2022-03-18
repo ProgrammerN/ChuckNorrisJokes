@@ -2,6 +2,10 @@ package com.dvt.chucknorrisjokes.util
 
 import kotlinx.coroutines.flow.*
 
+/**
+ * Concrete implementation of network bound response.
+ * @param <ResultType, RequestType>
+ */
 inline fun <ResultType, RequestType> networkBoundResource(
     crossinline query: () -> Flow<ResultType>,
     crossinline fetch: suspend () -> RequestType,

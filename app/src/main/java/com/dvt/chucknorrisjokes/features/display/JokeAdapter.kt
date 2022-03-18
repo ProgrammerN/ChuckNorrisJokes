@@ -7,7 +7,11 @@ import com.bumptech.glide.Glide
 import com.dvt.chucknorrisjokes.data.Category
 import com.dvt.chucknorrisjokes.data.Joke
 import com.dvt.chucknorrisjokes.databinding.JokeItemBinding
+import com.dvt.chucknorrisjokes.features.categories.CategoryAdapter.OnItemClickListener
 
+/**
+ * Recycler view Adapter for the joke list
+ */
 class JokeAdapter : RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
 
     private lateinit var mData: List<Joke>
