@@ -53,6 +53,8 @@
             android:layout_height="wrap_content"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
+            android:visibility="invisible"
+            tools:visibility="visible"
             app:lottie_rawRes="@raw/swipe_up_animation" />
 
         <LinearLayout

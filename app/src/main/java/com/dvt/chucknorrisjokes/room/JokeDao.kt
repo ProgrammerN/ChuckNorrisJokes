@@ -39,7 +39,7 @@ interface JokeDao {
      * @param category joke category.
      * @return all jokes that have the category.
      */
-    @Query("SELECT * FROM jokes_table WHERE value LIKE '%' || :category || '%'")
+    @Query("SELECT * FROM jokes_table WHERE categories LIKE '%' || :category || '%'")
     fun getJokeByCategory(category: String): Flow<List<Joke>>
 
     /**

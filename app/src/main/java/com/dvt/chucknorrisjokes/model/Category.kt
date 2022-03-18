@@ -16,4 +16,16 @@ import kotlinx.android.parcel.Parcelize
 class Category(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val category: String
-) : Parcelable
+) : Parcelable {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Category
+
+        if (id != other.id) return false
+        if (category != other.category) return false
+
+        return true
+    }
+}

@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.dvt.chucknorrisjokes.model.Category
+import com.dvt.chucknorrisjokes.adapters.CategoryAdapter.OnItemClickListener
 import com.dvt.chucknorrisjokes.databinding.CategoryItemBinding
+import com.dvt.chucknorrisjokes.model.Category
 import com.dvt.chucknorrisjokes.util.RandomColor
 
 /**
@@ -51,11 +52,8 @@ class CategoryAdapter(private val listener: OnItemClickListener) : ListAdapter<C
         fun onItemClick(category: Category)
     }
 
-
     class DiffCallback : DiffUtil.ItemCallback<Category>() {
         override fun areItemsTheSame(oldItem: Category, newItem: Category) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Category, newItem: Category) = oldItem == newItem
     }
-
-
 }

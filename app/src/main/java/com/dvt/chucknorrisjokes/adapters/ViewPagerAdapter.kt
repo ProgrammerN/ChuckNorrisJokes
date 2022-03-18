@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dvt.chucknorrisjokes.model.Joke
 import com.dvt.chucknorrisjokes.databinding.JokeItemBinding
+import com.dvt.chucknorrisjokes.model.Joke
 import com.dvt.chucknorrisjokes.util.RandomColor
 
 /**
@@ -76,7 +76,7 @@ class ViewPagerAdapter(private val condition: ConditionViewPager) : RecyclerView
                     //TODO: add and remove from to favorites
                 }
 
-                animationView.isVisible = fullSize > 1 && position < fullSize
+                animationView.isVisible = fullSize > 1 && position + 1 < fullSize
             }
         }
     }
