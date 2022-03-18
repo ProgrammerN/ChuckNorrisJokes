@@ -46,7 +46,7 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
             }
 
             viewModel.joke.observe(viewLifecycleOwner) { result ->
-
+                requireActivity().title = "Random Joke"
                 Timber.d("Status $result")
 
                 result.data?.let {
@@ -59,7 +59,7 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
             }
 
             viewModel.queryJokeResults.observe(viewLifecycleOwner) { result ->
-
+                requireActivity().title = "Jokes"
                 Timber.d("Status $result")
 
                 result.data?.let {
@@ -75,15 +75,18 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
         setFragmentResultListener("choose_category_request") { _, bundle ->
             val result = bundle.getParcelable<Category>("selected_category")
             if (result != null) {
-                viewModel.searchCategory.value = result.category
-            }
 
-            binding.apply {
-                viewModel.categoryJokesResult.observe(viewLifecycleOwner) { result ->
-                    jokeAdapter.setJokes(result.data!!)
-                    progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
-                    textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
-                    textViewError.text = result.error?.localizedMessage
+                viewModel.searchCategory.value = result.category
+
+                requireActivity().title = "${result.category} Jokes"
+
+                binding.apply {
+                    viewModel.categoryJokesResult.observe(viewLifecycleOwner) { result ->
+                        jokeAdapter.setJokes(result.data!!)
+                        progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
+                        textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
+                        textViewError.text = result.error?.localizedMessage
+                    }
                 }
             }
         }
@@ -93,7 +96,6 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
                 when (event) {
                     is JokesViewModel.CategoryEvent.NavigateToCategoriesScreen -> {
                         val action = JokesFragmentDirections.actionJokesFragmentToChooseCategoryFragment()
-
                         findNavController().navigate(action)
                     }
                 }
