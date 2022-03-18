@@ -18,7 +18,6 @@ import com.dvt.chucknorrisjokes.data.Category
 import com.dvt.chucknorrisjokes.data.Joke
 import com.dvt.chucknorrisjokes.databinding.FragmentJokesBinding
 import com.dvt.chucknorrisjokes.extentions.onQueryTextChanged
-import com.dvt.chucknorrisjokes.extentions.toast
 import com.dvt.chucknorrisjokes.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
