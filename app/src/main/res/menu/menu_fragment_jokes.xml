@@ -9,4 +9,10 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 
+    <item
+        android:id="@+id/action_categories"
+        android:icon="@drawable/ic_sort"
+        android:title="Categories"
+        app:showAsAction="always" />
+
 </menu>

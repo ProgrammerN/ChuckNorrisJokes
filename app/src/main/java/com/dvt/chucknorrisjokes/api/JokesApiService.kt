@@ -17,11 +17,11 @@ interface JokesApiService {
     suspend fun getRandomJoke(): Joke
 
     @GET("search")
-    suspend fun getJokesByQuery(@Query("query") query: String): Flow<SearchResult>
+    suspend fun getJokesByQuery(@Query("query") query: String): SearchResult
 
-    @GET("random?category={category}")
-    suspend fun getJokeByCategory(@Path("category") category: String): Flow<List<Joke>>
+    @GET("random")
+    suspend fun getJokeByCategory(@Query("category") category: String): SearchResult
 
     @GET("categories")
-    suspend fun getJokesCategories(): List<Joke>
+    suspend fun getJokesCategories(): List<String>
 }

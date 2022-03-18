@@ -7,9 +7,18 @@
 
     <fragment
         android:id="@+id/jokesFragment"
-        android:name="com.dvt.chucknorrisjokes.features.JokesFragment"
-        android:label="Jokes"
+        android:name="com.dvt.chucknorrisjokes.features.display.JokesFragment"
+        android:label="Chuck Norris Jokes"
         tools:layout="@layout/fragment_jokes">
+        <action
+            android:id="@+id/action_jokesFragment_to_chooseCategoryFragment"
+            app:destination="@id/categoriesFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.dvt.chucknorrisjokes.features.categories.CategoriesFragment"
+        android:label="Joke Categories"
+        tools:layout="@layout/fragment_categories"/>
+
 
 </navigation>

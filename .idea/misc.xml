@@ -4,8 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/layout/activity_main.xml" value="0.12552083333333333" />
-        <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/layout/fragment_jokes.xml" value="0.2" />
+        <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/layout/activity_viewpager2.xml" value="0.1734375" />
+        <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/layout/category_item.xml" value="0.1" />
+        <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/layout/fragment_blank.xml" value="0.159375" />
+        <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/layout/fragment_categories.xml" value="0.25" />
+        <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/layout/fragment_jokes.xml" value="0.18" />
+        <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/layout/fragment_jokes_view_pager.xml" value="0.1734375" />
+        <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/layout/fragment_view_pager_jokes.xml" value="0.1" />
         <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/layout/joke_item.xml" value="0.22" />
+        <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/layout/joke_item_slide_page.xml" value="0.1734375" />
+        <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/menu/menu_fragment_jokes.xml" value="0.1" />
         <entry key="..\:/Users/Nigel/AndroidStudioProjects/ChuckNorrisJokes/app/src/main/res/menu/menu_fragment_tasks.xml" value="0.1" />
       </map>
     </option>

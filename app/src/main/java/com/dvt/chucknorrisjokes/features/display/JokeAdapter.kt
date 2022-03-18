@@ -1,14 +1,14 @@
-package com.dvt.chucknorrisjokes.features
+package com.dvt.chucknorrisjokes.features.display
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dvt.chucknorrisjokes.data.Category
 import com.dvt.chucknorrisjokes.data.Joke
-import com.dvt.chucknorrisjokes.data.SearchResult
 import com.dvt.chucknorrisjokes.databinding.JokeItemBinding
 
-class JokeAdapter() : RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
+class JokeAdapter : RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
 
     private lateinit var mData: List<Joke>
 
@@ -45,5 +45,9 @@ class JokeAdapter() : RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
                 textViewJoke.text = joke.value
             }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(category: Category)
     }
 }
