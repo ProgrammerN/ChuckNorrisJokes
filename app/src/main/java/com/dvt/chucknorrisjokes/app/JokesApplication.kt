@@ -8,8 +8,9 @@ import timber.log.Timber
 /**
  * Use Hilt Dependency Injection
  *
- * Also, sets up Timber in the DEBUG BuildConfig. Read Timber's documentation for production setups.
+ * Also, sets up Timber in the DEBUG BuildConfig.
  */
+
 
 @HiltAndroidApp
 class JokesApplication : Application() {

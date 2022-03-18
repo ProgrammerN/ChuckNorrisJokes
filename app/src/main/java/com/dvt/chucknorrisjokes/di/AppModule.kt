@@ -2,9 +2,9 @@ package com.dvt.chucknorrisjokes.di
 
 import android.app.Application
 import androidx.room.Room
-import com.dvt.chucknorrisjokes.api.JokesApiService
+import com.dvt.chucknorrisjokes.retrofit.JokesApiService
 import com.dvt.chucknorrisjokes.app.Constants
-import com.dvt.chucknorrisjokes.data.JokesDatabase
+import com.dvt.chucknorrisjokes.room.JokesDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

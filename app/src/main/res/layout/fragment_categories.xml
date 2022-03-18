@@ -5,7 +5,7 @@
     android:layout_margin="4dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.dvt.chucknorrisjokes.features.categories.CategoriesFragment">
+    tools:context="com.dvt.chucknorrisjokes.ui.features.CategoriesFragment">
 
     <ProgressBar
         android:id="@+id/progress_bar"
