@@ -1,12 +1,8 @@
 package com.dvt.chucknorrisjokes.repositories
 
-import com.dvt.chucknorrisjokes.model.Category
-import com.dvt.chucknorrisjokes.model.Joke
 import com.dvt.chucknorrisjokes.repository.JokesRepository
 import com.dvt.chucknorrisjokes.retrofit.JokesApiService
 import com.dvt.chucknorrisjokes.room.JokesDatabase
-import com.dvt.chucknorrisjokes.util.Resource
-import kotlinx.coroutines.flow.Flow
 
 class FakeJokesRepository(apiService: JokesApiService, db: JokesDatabase) : JokesRepository(apiService, db) {
 

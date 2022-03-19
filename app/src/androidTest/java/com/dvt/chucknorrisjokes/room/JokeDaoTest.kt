@@ -69,7 +69,6 @@ class JokeDaoTest {
             "Chuck Norris once kicked a horse in the chin. Its decendants are known today as Giraffes."
         )
 
-
         jokeDao.insertJoke(jokeItem)
 
 
