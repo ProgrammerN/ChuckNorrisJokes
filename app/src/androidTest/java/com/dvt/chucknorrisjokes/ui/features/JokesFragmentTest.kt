@@ -1,34 +1,53 @@
 package com.dvt.chucknorrisjokes.ui.features
 
-import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.testing.TestNavHostController
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.filters.MediumTest
 import com.dvt.chucknorrisjokes.R
-import com.google.common.truth.Truth.assertThat
+import com.dvt.chucknorrisjokes.launchFragmentInHiltContainer
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
+import org.mockito.Mockito
 
-@RunWith(AndroidJUnit4::class)
+@MediumTest
+@HiltAndroidTest
+@ExperimentalCoroutinesApi
 class JokesFragmentTest {
 
-    @Test
-    fun clickCategoriesMenuItem_navigateToCategoriesFragment() {
-        val navController = TestNavHostController(
-            ApplicationProvider.getApplicationContext()
-        )
-        val titleScenario = launchFragmentInContainer<JokesFragment>()
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
-        titleScenario.onFragment { fragment ->
-            navController.setGraph(R.navigation.nav_graph)
-            Navigation.setViewNavController(fragment.requireView(), navController)
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    @Before
+    fun setup() {
+        hiltRule.inject()
+    }
+
+    @Test
+    fun clickCategoriesMenuItem_navigateToCategoriesFragment() = runTest {
+        val navController = Mockito.mock(NavController::class.java)
+        launchFragmentInHiltContainer<JokesFragment>(
+            fragmentFactory = null
+        ) {
+            Navigation.setViewNavController(requireView(), navController)
         }
-        onView(ViewMatchers.withId(R.id.action_categories)).perform(ViewActions.click())
-        assertThat(navController.currentDestination?.id).isEqualTo(R.id.categoriesFragment)
+
+        onView(withId(R.id.action_categories)).perform(ViewActions.click())
+
+        Mockito.verify(navController).navigate(
+            JokesFragmentDirections.actionJokesFragmentToChooseCategoryFragment()
+        )
     }
 }
 
