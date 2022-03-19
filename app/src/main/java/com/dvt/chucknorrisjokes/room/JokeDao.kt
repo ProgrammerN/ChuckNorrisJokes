@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dvt.chucknorrisjokes.model.Category
 import com.dvt.chucknorrisjokes.model.Joke
-import com.dvt.chucknorrisjokes.model.JokeFavorite
+import com.dvt.chucknorrisjokes.model.FavoriteJoke
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -51,6 +51,14 @@ interface JokeDao {
     fun getCategories(): Flow<List<Category>>
 
     /**
+     * Flow Observer list of categories.
+     *
+     * @return all categories.
+     */
+    @Query("SELECT * FROM favorites_table")
+    fun getFavoritedJokes(): Flow<List<FavoriteJoke>>
+
+    /**
      * Insert a joke in the database. If the joke already exists, replace it.
      *
      * @param joke the joke to be inserted.
@@ -64,7 +72,7 @@ interface JokeDao {
      * @param joke the joke to be inserted.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFavoriteJoke(joke: JokeFavorite)
+    suspend fun insertFavoriteJoke(joke: FavoriteJoke)
 
     /**
      * Insert a list of jokes in the database. If the list already exists, replace it.
@@ -87,6 +95,12 @@ interface JokeDao {
      */
     @Query("DELETE FROM jokes_table")
     suspend fun deleteAllJokes()
+
+    /**
+     * Delete all favorite jokes.
+     */
+    @Query("DELETE FROM favorites_table")
+    suspend fun deleteAllFavoriteJokes()
 
     /**
      * Delete all categories.

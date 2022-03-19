@@ -5,7 +5,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -46,6 +45,7 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
                 orientation = ViewPager2.ORIENTATION_VERTICAL
             }
 
+
             viewModel.joke.observe(viewLifecycleOwner) { result ->
                 Timber.d("Status $result")
 
@@ -78,6 +78,7 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
                 viewModel.searchCategory.value = result.category
 
                 binding.apply {
+
                     viewModel.categoryJokesResult.observe(viewLifecycleOwner) { result ->
                         jokeAdapter.setJokes(result.data!!)
                         progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()

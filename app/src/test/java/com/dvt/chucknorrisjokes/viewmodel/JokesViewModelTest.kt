@@ -1,8 +1,6 @@
 package com.dvt.chucknorrisjokes.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.dvt.chucknorrisjokes.MainCoroutineRule
-import com.dvt.chucknorrisjokes.repository.JokesRepository
 import com.dvt.chucknorrisjokes.room.JokeDao
 import com.dvt.chucknorrisjokes.room.JokesDatabase
 import dagger.hilt.android.testing.HiltAndroidRule

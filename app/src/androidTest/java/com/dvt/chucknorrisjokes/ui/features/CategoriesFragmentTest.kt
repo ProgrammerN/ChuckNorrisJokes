@@ -17,9 +17,10 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
+@RunWith(AndroidJUnit4::class)
 @MediumTest
-@HiltAndroidTest
 @ExperimentalCoroutinesApi
+@HiltAndroidTest
 class CategoriesFragmentTest {
 
     @get:Rule

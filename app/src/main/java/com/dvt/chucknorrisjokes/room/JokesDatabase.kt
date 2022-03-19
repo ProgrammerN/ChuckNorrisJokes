@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.dvt.chucknorrisjokes.app.Constants
 import com.dvt.chucknorrisjokes.model.Category
 import com.dvt.chucknorrisjokes.model.Joke
-import com.dvt.chucknorrisjokes.model.JokeFavorite
+import com.dvt.chucknorrisjokes.model.FavoriteJoke
 
 /**
  * The Room Database that contains the Jokes table, Categories table & JokeFavorite table.
@@ -15,7 +15,7 @@ import com.dvt.chucknorrisjokes.model.JokeFavorite
  */
 
 @Database(
-    entities = [Joke::class, Category::class, JokeFavorite::class],
+    entities = [Joke::class, Category::class, FavoriteJoke::class],
     version = Constants.DATABASE_VERSION,
     exportSchema = Constants.DATABASE_EXPORT_SCHEMA
 )

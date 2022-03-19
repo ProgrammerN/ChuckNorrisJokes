@@ -20,7 +20,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "favorites_table")
 @Parcelize
-data class JokeFavorite(
+data class FavoriteJoke(
     val categories: List<String>,
     @SerializedName("created_at") val createdAt: String,
     @SerializedName("icon_url") val iconUrl: String,

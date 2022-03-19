@@ -36,6 +36,8 @@ class JokesViewModel @Inject constructor(repository: JokesRepository) : ViewMode
     //Random joke by search query as live data
     val queryJokeResults = queryFlow.asLiveData()
 
+
+
     //FlowMutable random joke by category
     private val randomJokesByCategoryFlow = searchCategory.flatMapLatest {
         repository.getJokesByCategory(it)
