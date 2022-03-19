@@ -19,7 +19,6 @@ import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-@SmallTest
 class JokeDaoTest {
 
     @get:Rule
@@ -44,7 +43,7 @@ class JokeDaoTest {
     }
 
     @Test
-    fun insertJokeItem() = runTest {
+    fun deleteAndInsertSingleJokeItemAndReadItAsRandom() = runTest {
         val jokeItem = Joke(
             listOf("animal"), "2020-01-05 13:42:19.576875",
             "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
@@ -52,14 +51,15 @@ class JokeDaoTest {
             "https://api.chucknorris.io/jokes/xwjic1sws_yohsfefndaiw",
             "Chuck Norris once kicked a horse in the chin. Its decendants are known today as Giraffes."
         )
+        jokeDao.deleteAllJokes()
         jokeDao.insertJoke(jokeItem)
 
-        val allJokeItems = jokeDao.getJokeByCategory("animal").asLiveData().getOrAwaitValue()
-        assertThat(allJokeItems).contains(jokeItem)
+        val allJokeItems = jokeDao.getRandomJoke().asLiveData().getOrAwaitValue()
+        assertThat(allJokeItems).isEqualTo(jokeItem)
     }
 
     @Test
-    fun deleteAllJokes() = runTest {
+    fun insertAndAccess_A_JokeByItsCategory() = runTest {
         val jokeItem = Joke(
             listOf("animal"), "2020-01-05 13:42:19.576875",
 
@@ -69,12 +69,13 @@ class JokeDaoTest {
             "Chuck Norris once kicked a horse in the chin. Its decendants are known today as Giraffes."
         )
 
+
         jokeDao.insertJoke(jokeItem)
-        jokeDao.deleteAllJokes()
+
 
         val allJokeItems = jokeDao.getJokeByCategory("animal").asLiveData().getOrAwaitValue()
 
-        assertThat(allJokeItems).doesNotContain(jokeItem)
+        assertThat(allJokeItems).contains(jokeItem)
     }
 
     @Test

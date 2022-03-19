@@ -17,7 +17,7 @@ open class JokesRepository @Inject constructor(private val apiService: JokesApiS
 
     private val jokesJokeDao = db.JokeDao()
 
-    fun getRandomJoke() = networkBoundResource(
+    open fun getRandomJoke() = networkBoundResource(
         query = {
             jokesJokeDao.getRandomJoke()
         },
@@ -32,7 +32,7 @@ open class JokesRepository @Inject constructor(private val apiService: JokesApiS
         }
     )
 
-    fun getJokesFromQuery(searchQuery: String) = networkBoundResource(
+    open fun getJokesFromQuery(searchQuery: String) = networkBoundResource(
         query = {
             jokesJokeDao.getJokeFromQuery(searchQuery)
         },
@@ -47,7 +47,7 @@ open class JokesRepository @Inject constructor(private val apiService: JokesApiS
         }
     )
 
-    fun getJokesCategories() = networkBoundResource(
+    open fun getJokesCategories() = networkBoundResource(
         query = {
             jokesJokeDao.getCategories()
         },
@@ -64,7 +64,7 @@ open class JokesRepository @Inject constructor(private val apiService: JokesApiS
         }
     )
 
-    fun getJokesByCategory(category: String) = networkBoundResource(
+    open fun getJokesByCategory(category: String) = networkBoundResource(
         query = {
             jokesJokeDao.getJokeByCategory(category)
         },

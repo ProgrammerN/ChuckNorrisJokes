@@ -15,14 +15,14 @@ class CategoriesFragmentTest {
 
     @Test
     fun pressBackButton_popBackStack() {
+
         val navController = mock(NavController::class.java)
         launchFragmentInHiltContainer<CategoriesFragment> {
             Navigation.setViewNavController(requireView(), navController)
         }
-
         pressBack()
-
         verify(navController).popBackStack()
+
     }
 }
 
