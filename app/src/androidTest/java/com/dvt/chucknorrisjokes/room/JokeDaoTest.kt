@@ -54,7 +54,7 @@ class JokeDaoTest {
         )
         jokeDao.insertJoke(jokeItem)
 
-        val allJokeItems = jokeDao.getJokeByCategory("animal").asLiveData().value
+        val allJokeItems = jokeDao.getJokeByCategory("animal").asLiveData().getOrAwaitValue()
         assertThat(allJokeItems).contains(jokeItem)
     }
 

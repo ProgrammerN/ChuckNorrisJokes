@@ -20,5 +20,4 @@
         android:label="Joke Categories"
         tools:layout="@layout/fragment_categories"/>
 
-
 </navigation>

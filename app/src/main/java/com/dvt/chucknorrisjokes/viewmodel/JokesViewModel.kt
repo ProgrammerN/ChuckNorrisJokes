@@ -44,7 +44,7 @@ class JokesViewModel @Inject constructor(repository: JokesRepository) : ViewMode
     //Random joke by category as live data
     val categoryJokesResult = randomJokesByCategoryFlow.asLiveData()
 
-    // Demos
+    // Events
     private val categoryEventChannel = Channel<CategoryEvent>()
     val categoryEvent = categoryEventChannel.receiveAsFlow()
 
@@ -55,6 +55,5 @@ class JokesViewModel @Inject constructor(repository: JokesRepository) : ViewMode
     sealed class CategoryEvent {
         object NavigateToCategoriesScreen : CategoryEvent()
     }
-
 
 }

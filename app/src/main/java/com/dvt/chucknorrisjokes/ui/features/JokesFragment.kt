@@ -46,7 +46,6 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
             }
 
             viewModel.joke.observe(viewLifecycleOwner) { result ->
-                requireActivity().title = "Random Joke"
                 Timber.d("Status $result")
 
                 result.data?.let {
@@ -59,7 +58,6 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
             }
 
             viewModel.queryJokeResults.observe(viewLifecycleOwner) { result ->
-                requireActivity().title = "Jokes"
                 Timber.d("Status $result")
 
                 result.data?.let {
@@ -77,8 +75,6 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
             if (result != null) {
 
                 viewModel.searchCategory.value = result.category
-
-                requireActivity().title = "${result.category} Jokes"
 
                 binding.apply {
                     viewModel.categoryJokesResult.observe(viewLifecycleOwner) { result ->
