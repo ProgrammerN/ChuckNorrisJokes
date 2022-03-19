@@ -49,7 +49,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-
     // Fragment
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
@@ -84,22 +83,21 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     // Local Unit Tests
-    implementation "androidx.test:core:1.2.0"
+    implementation "androidx.test:core:$androidCoreTestVersion"
     testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.hamcrest:hamcrest-all:1.3"
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation "org.robolectric:robolectric:4.3.1"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1"
+    testImplementation "androidx.arch.core:core-testing:$androidCoreTesting"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesTestVerison"
     testImplementation "com.google.truth:truth:$truthVersion"
-    testImplementation "org.mockito:mockito-core:2.21.0"
+    testImplementation "org.mockito:mockito-core:$mockitoTestingVersion"
 
     // Instrumented Unit Tests
-    androidTestImplementation "junit:junit:4.13"
-    androidTestImplementation 'com.linkedin.dexmaker:dexmaker-mockito:2.28.1'
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1"
-    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$mockitoDexmakerVersion"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesTestVerison"
+    androidTestImplementation "androidx.arch.core:core-testing:$androidCoreTesting"
     androidTestImplementation "com.google.truth:truth:$truthVersion"
-    androidTestImplementation "org.mockito:mockito-core:2.21.0"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoTestingVersion"
     androidTestImplementation "androidx.test.ext:junit:$testExtJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation("androidx.navigation:navigation-testing:$androidTestNavigation")

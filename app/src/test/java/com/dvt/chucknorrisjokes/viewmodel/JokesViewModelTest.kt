@@ -1,16 +1,21 @@
 package com.dvt.chucknorrisjokes.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import com.dvt.chucknorrisjokes.MainCoroutineRule
+import com.dvt.chucknorrisjokes.repository.JokesRepository
+import com.dvt.chucknorrisjokes.room.JokeDao
 import com.dvt.chucknorrisjokes.room.JokesDatabase
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import javax.inject.Inject
+import javax.inject.Named
 
 @ExperimentalCoroutinesApi
+@HiltAndroidTest
 class JokesViewModelTest {
 
     @get:Rule
@@ -19,80 +24,29 @@ class JokesViewModelTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private lateinit var viewModel: JokesViewModel
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
-    private lateinit var database: JokesDatabase
+    @Inject
+    @Named("test_db")
+    lateinit var database: JokesDatabase
+    private lateinit var jokeDao: JokeDao
 
     @After
     fun teardown() {
         database.close()
     }
 
+    private lateinit var viewModel: JokesViewModel
+
     @Before
     fun setup() {
-        database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            JokesDatabase::class.java
-        ).allowMainThreadQueries().build()
+        hiltRule.inject()
+        jokeDao = database.JokeDao()
 
-
-        //viewModel = JokesViewModel(repository = JokesRepository(apiService = , db = database))
+        //viewModel = JokesViewModel(repository = JokesRepository(apiService =, db = database))
     }
 
-    /*@Test
-    fun `insert shopping item with empty field, returns error`() {
-        viewModel.insertShoppingItem("name", "", "3.0")
-
-        val value = viewModel.insertShoppingItemStatus.getOrAwaitValueTest()
-
-        assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.ERROR)
-    }*/
-
-    /*@Test
-    fun `insert shopping item with too long name, returns error`() {
-        val string = buildString {
-            for (i in 1..Constants.MAX_NAME_LENGTH + 1) {
-                append(1)
-            }
-        }
-        viewModel.insertShoppingItem(string, "5", "3.0")
-
-        val value = viewModel.insertShoppingItemStatus.getOrAwaitValueTest()
-
-        assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.ERROR)
-    }
-
-    @Test
-    fun `insert shopping item with too long price, returns error`() {
-        val string = buildString {
-            for (i in 1..Constants.MAX_PRICE_LENGTH + 1) {
-                append(1)
-            }
-        }
-        viewModel.insertShoppingItem("name", "5", string)
-
-        val value = viewModel.insertShoppingItemStatus.getOrAwaitValueTest()
-
-        assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.ERROR)
-    }
-
-    @Test
-    fun `insert shopping item with too high amount, returns error`() {
-        viewModel.insertShoppingItem("name", "9999999999999999999", "3.0")
-
-        val value = viewModel.insertShoppingItemStatus.getOrAwaitValueTest()
-
-        assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.ERROR)
-    }
-
-    @Test
-    fun `insert shopping item with valid input, returns success`() {
-        viewModel.insertShoppingItem("name", "5", "3.0")
-
-        val value = viewModel.insertShoppingItemStatus.getOrAwaitValueTest()
-
-        assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.SUCCESS)
-    }*/
 }
 
 

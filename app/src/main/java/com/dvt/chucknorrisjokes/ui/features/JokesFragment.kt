@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -31,7 +32,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.ConditionViewPager {
 
-    private val viewModel: JokesViewModel by viewModels()
+    val viewModel: JokesViewModel by viewModels()
     private lateinit var searchView: SearchView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

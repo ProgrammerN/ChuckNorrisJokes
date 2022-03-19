@@ -37,7 +37,12 @@ buildscript {
 
         fragmentTestingVersion = "1.4.1"
         daggerTestingVersion = "2.38.1"
-
+        androidCoreTesting = "2.1.0"
+        mockitoTestingVersion = "4.4.0"
+        mockitoDexmakerVersion= "2.28.1"
+        kotlinxCoroutinesTestVerison = "1.6.0"
+        androidCoreTestVersion = "1.4.0"
+        robolectricVersion = "4.7.3"
 
         dependencies {
             classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltClassPathVersion"

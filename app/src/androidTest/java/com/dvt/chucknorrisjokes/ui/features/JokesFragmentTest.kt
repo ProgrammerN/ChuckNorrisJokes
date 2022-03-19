@@ -9,6 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.MediumTest
 import com.dvt.chucknorrisjokes.R
 import com.dvt.chucknorrisjokes.launchFragmentInHiltContainer
+import com.dvt.chucknorrisjokes.viewmodel.JokesViewModel
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -17,6 +18,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
+import org.mockito.Mockito.mock
 
 @MediumTest
 @HiltAndroidTest
@@ -29,6 +31,7 @@ class JokesFragmentTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
+
     @Before
     fun setup() {
         hiltRule.inject()
@@ -36,10 +39,9 @@ class JokesFragmentTest {
 
     @Test
     fun clickCategoriesMenuItem_navigateToCategoriesFragment() = runTest {
-        val navController = Mockito.mock(NavController::class.java)
-        launchFragmentInHiltContainer<JokesFragment>(
-            fragmentFactory = null
-        ) {
+
+        val navController = mock(NavController::class.java)
+        launchFragmentInHiltContainer<JokesFragment> {
             Navigation.setViewNavController(requireView(), navController)
         }
 

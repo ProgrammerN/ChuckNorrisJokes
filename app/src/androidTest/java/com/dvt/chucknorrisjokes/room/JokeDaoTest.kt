@@ -9,6 +9,8 @@ import androidx.test.filters.SmallTest
 import com.dvt.chucknorrisjokes.getOrAwaitValue
 import com.dvt.chucknorrisjokes.model.Joke
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -16,24 +18,29 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import javax.inject.Inject
+import javax.inject.Named
 
 @ExperimentalCoroutinesApi
-@RunWith(AndroidJUnit4::class)
+@SmallTest
+@HiltAndroidTest
 class JokeDaoTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var database: JokesDatabase
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+    @Inject
+    @Named("test_db")
+    lateinit var database: JokesDatabase
     private lateinit var jokeDao: JokeDao
 
 
     @Before
     fun setup() {
-        database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            JokesDatabase::class.java
-        ).allowMainThreadQueries().build()
+        hiltRule.inject()
         jokeDao = database.JokeDao()
     }
 
@@ -70,7 +77,6 @@ class JokeDaoTest {
         )
 
         jokeDao.insertJoke(jokeItem)
-
 
         val allJokeItems = jokeDao.getJokeByCategory("animal").asLiveData().getOrAwaitValue()
 
