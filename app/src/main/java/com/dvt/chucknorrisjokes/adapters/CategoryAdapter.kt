@@ -9,11 +9,12 @@ import com.dvt.chucknorrisjokes.adapters.CategoryAdapter.OnItemClickListener
 import com.dvt.chucknorrisjokes.databinding.CategoryItemBinding
 import com.dvt.chucknorrisjokes.model.Category
 import com.dvt.chucknorrisjokes.util.RandomColor
+import javax.inject.Inject
 
 /**
  * Adapter for the category list. Has a reference to the [OnItemClickListener] to listen to click events.
  */
-class CategoryAdapter(private val listener: OnItemClickListener) : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallback()) {
+class CategoryAdapter @Inject constructor(private val listener: OnItemClickListener) : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val binding = CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

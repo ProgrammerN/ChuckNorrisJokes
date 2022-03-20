@@ -29,7 +29,9 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories), CategoryAdapt
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentCategoriesBinding.bind(view)
+
         val categoryAdapter = CategoryAdapter(this)
+
         binding.apply {
             recyclerViewCategories.apply {
                 adapter = categoryAdapter

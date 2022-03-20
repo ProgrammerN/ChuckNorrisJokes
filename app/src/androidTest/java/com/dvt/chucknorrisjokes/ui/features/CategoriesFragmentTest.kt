@@ -11,9 +11,12 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.dvt.chucknorrisjokes.R
+import com.dvt.chucknorrisjokes.adapters.CategoryAdapter
 import com.dvt.chucknorrisjokes.launchFragmentInHiltContainer
+import com.dvt.chucknorrisjokes.model.Category
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
@@ -40,11 +43,15 @@ class CategoriesFragmentTest {
     }
 
 
+    // Fleky Test, Please run app before performing test
     @Test
     fun pressItemInRecyclerViewAndNavigateBack() {
         val navController = mock(NavController::class.java)
+
         launchFragmentInHiltContainer<CategoriesFragment>() {
             Navigation.setViewNavController(requireView(), navController)
+            val categoryAdapter = recyclerViewCategories.adapter as CategoryAdapter
+            categoryAdapter.submitList(listOf(Category(0, "animal")))
 
         }
         onView(withId(R.id.recyclerViewCategories))
@@ -55,6 +62,7 @@ class CategoriesFragmentTest {
 
         verify(navController).popBackStack()
     }
+
 }
 
 

@@ -1,17 +1,22 @@
-package com.dvt.chucknorrisjokes.viewmodel
+package com.dvt.chucknorrisjokes.repositories
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.asLiveData
 import com.dvt.chucknorrisjokes.MainCoroutineRule
 import com.dvt.chucknorrisjokes.model.Category
 import com.dvt.chucknorrisjokes.model.Joke
-import com.dvt.chucknorrisjokes.repositories.FakeDataSource
-import com.dvt.chucknorrisjokes.repositories.FakeDefaultJokesRepository
+import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 
+/**
+ * Unit tests for the implementation of the in-memory repository with cache.
+ */
 @ExperimentalCoroutinesApi
-class JokesViewModelTest {
+class DefaultTasksRepositoryTest {
 
     private val joke1 = Joke(
         listOf("animal"), "2020-01-05 13:42:19.576875",
@@ -37,49 +42,38 @@ class JokesViewModelTest {
         "https://api.chucknorris.io/jokes/xwjic1sws_yohsfefndaiw",
         "Chuck Norris once kicked a horse in the chin. Its decendants are known today as Giraffes."
     )
-    private val remoteTasks = listOf(joke1, joke2, joke3)
+    private val remoteJokes = listOf(joke1, joke2, joke3)
 
     private val category1 = Category(1, "animal")
     private val category2 = Category(2, "Description2")
     private val category3 = Category(3, "Description3")
     private val remoteCategories = listOf(category1, category2, category3).sortedBy { it.id }
 
-    @get:Rule
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
+    private lateinit var fakeDataSource: FakeDataSource
 
+    // Class under test
+    private lateinit var fakeDefaultJokesRepository: FakeDefaultJokesRepository
+
+    // Set the main coroutines dispatcher for unit testing.
+    @ExperimentalCoroutinesApi
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private lateinit var viewModel: JokesViewModel
-
-    private lateinit var fakeDataSource: FakeDataSource
-
-    private lateinit var fakeDefaultJokesRepository: FakeDefaultJokesRepository
-
     @Before
     fun createRepository() {
-        fakeDataSource = FakeDataSource(remoteTasks.toMutableList(), remoteCategories.toMutableList())
-
+        fakeDataSource = FakeDataSource(remoteJokes.toMutableList(), remoteCategories.toMutableList())
+        // Get a reference to the class under test
         fakeDefaultJokesRepository = FakeDefaultJokesRepository(fakeDataSource)
     }
 
-    @Before
-    fun setup() {
-        viewModel = JokesViewModel(fakeDefaultJokesRepository)
+    @Test
+    fun getJokes_requestsAllJokesFromRemoteDataSource() = mainCoroutineRule.runBlockingTest {
+        // When a random jokes is requested from the jokes repository
+        val joke = fakeDefaultJokesRepository.getRandomJoke().asLiveData()
+
+        // Then random joke is loaded from source
+        Truth.assertThat(remoteJokes).contains(joke.value?.data)
     }
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
