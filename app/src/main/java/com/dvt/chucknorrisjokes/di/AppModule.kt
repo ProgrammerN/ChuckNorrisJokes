@@ -2,8 +2,10 @@ package com.dvt.chucknorrisjokes.di
 
 import android.app.Application
 import androidx.room.Room
-import com.dvt.chucknorrisjokes.retrofit.JokesApiService
 import com.dvt.chucknorrisjokes.app.Constants
+import com.dvt.chucknorrisjokes.repository.DefaultJokesRepository
+import com.dvt.chucknorrisjokes.repository.JokesRepository
+import com.dvt.chucknorrisjokes.retrofit.JokesApiService
 import com.dvt.chucknorrisjokes.room.JokesDatabase
 import dagger.Module
 import dagger.Provides
@@ -33,6 +35,13 @@ object AppModule {
     @Singleton
     fun provideJokesApiService(retrofit: Retrofit): JokesApiService =
         retrofit.create(JokesApiService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideDefaultJokesRepository(
+        apiService: JokesApiService,
+        db: JokesDatabase
+    ) = DefaultJokesRepository(apiService, db) as JokesRepository
 
     @Provides
     @Singleton

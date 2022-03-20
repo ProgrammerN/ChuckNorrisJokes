@@ -3,7 +3,7 @@ package com.dvt.chucknorrisjokes.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.dvt.chucknorrisjokes.repository.DefaultJokesRepository
+import com.dvt.chucknorrisjokes.repository.JokesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -19,7 +19,7 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class JokesViewModel @Inject constructor(repositoryDefault: DefaultJokesRepository) : ViewModel() {
+class JokesViewModel @Inject constructor(repositoryDefault: JokesRepository) : ViewModel() {
 
     val joke = repositoryDefault.getRandomJoke()
         .flowOn(Dispatchers.Default).asLiveData()

@@ -1,48 +1,41 @@
 package com.dvt.chucknorrisjokes.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.dvt.chucknorrisjokes.MainCoroutineRule
+import com.dvt.chucknorrisjokes.getOrAwaitValueTest
 import com.dvt.chucknorrisjokes.repositories.FakeDefaultJokesRepository
-import com.dvt.chucknorrisjokes.room.JokeDao
-import com.dvt.chucknorrisjokes.room.JokesDatabase
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
+import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
-import javax.inject.Inject
-import javax.inject.Named
+import org.junit.Test
 
 @ExperimentalCoroutinesApi
-@HiltAndroidTest
 class JokesViewModelTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-
     @get:Rule
-    var hiltRule = HiltAndroidRule(this)
-
-    @Inject
-    @Named("test_db")
-    lateinit var database: JokesDatabase
-    private lateinit var jokeDao: JokeDao
-
-    @After
-    fun teardown() {
-        database.close()
-    }
+    var mainCoroutineRule = MainCoroutineRule()
 
     private lateinit var viewModel: JokesViewModel
 
     @Before
     fun setup() {
-        hiltRule.inject()
-        jokeDao = database.JokeDao()
 
-        //viewModel = JokesViewModel(FakeDefaultJokesRepository())
+        viewModel = JokesViewModel(FakeDefaultJokesRepository())
     }
+
+    /*@Test
+    fun `empty search string, returns zero results`() {
+
+        viewModel.searchCategory.value = ""
+
+        val value = viewModel.queryJokeResults.getOrAwaitValueTest()
+
+        assertThat(value.data).isEmpty()
+    }*/
 
 }
 
