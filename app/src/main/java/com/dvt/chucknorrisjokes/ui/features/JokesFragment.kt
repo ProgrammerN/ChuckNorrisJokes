@@ -31,7 +31,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.ConditionViewPager {
 
-    val viewModel: JokesViewModel by viewModels()
+    private val viewModel: JokesViewModel by viewModels()
     private lateinit var searchView: SearchView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,8 +44,6 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
                 adapter = jokeAdapter
                 orientation = ViewPager2.ORIENTATION_VERTICAL
             }
-
-
             viewModel.joke.observe(viewLifecycleOwner) { result ->
                 Timber.d("Status $result")
 
@@ -64,7 +62,6 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
                 result.data?.let {
                     jokeAdapter.setJokes(it)
                 }
-
                 progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
                 textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
                 textViewError.text = result.error?.localizedMessage
@@ -74,11 +71,8 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
         setFragmentResultListener("choose_category_request") { _, bundle ->
             val result = bundle.getParcelable<Category>("selected_category")
             if (result != null) {
-
                 viewModel.searchCategory.value = result.category
-
                 binding.apply {
-
                     viewModel.categoryJokesResult.observe(viewLifecycleOwner) { result ->
                         jokeAdapter.setJokes(result.data!!)
                         progressBar.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
@@ -105,6 +99,7 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
 
     override fun condition(position: Int, fullSize: Int) {
         if (position == fullSize) {
+            //TODO implement on las item selected
         }
     }
 

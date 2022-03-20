@@ -56,7 +56,7 @@ interface JokeDao {
      * @return all categories.
      */
     @Query("SELECT * FROM favorites_table")
-    fun getFavoritedJokes(): Flow<List<FavoriteJoke>>
+    fun getFavoriteJokes(): Flow<List<FavoriteJoke>>
 
     /**
      * Insert a joke in the database. If the joke already exists, replace it.

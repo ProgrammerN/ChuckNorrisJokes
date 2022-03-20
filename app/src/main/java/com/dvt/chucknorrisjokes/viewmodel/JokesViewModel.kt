@@ -3,11 +3,13 @@ package com.dvt.chucknorrisjokes.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.dvt.chucknorrisjokes.repository.JokesRepository
+import com.dvt.chucknorrisjokes.repository.DefaultJokesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,10 +19,10 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class JokesViewModel @Inject constructor(repository: JokesRepository) : ViewModel() {
+class JokesViewModel @Inject constructor(repositoryDefault: DefaultJokesRepository) : ViewModel() {
 
-    //Random joke as live data
-    val joke = repository.getRandomJoke().asLiveData()
+    val joke = repositoryDefault.getRandomJoke()
+        .flowOn(Dispatchers.Default).asLiveData()
 
     //FlowMutable search query text
     val searchQuery = MutableStateFlow("")
@@ -30,21 +32,21 @@ class JokesViewModel @Inject constructor(repository: JokesRepository) : ViewMode
 
     //FlowMutable search results
     private val queryFlow = searchQuery.flatMapLatest {
-        repository.getJokesFromQuery(it)
-    }
+        repositoryDefault.getJokesFromQuery(it)
+    }.flowOn(Dispatchers.Default)
 
     //Random joke by search query as live data
     val queryJokeResults = queryFlow.asLiveData()
 
-
-
     //FlowMutable random joke by category
     private val randomJokesByCategoryFlow = searchCategory.flatMapLatest {
-        repository.getJokesByCategory(it)
-    }
+        repositoryDefault.getJokesByCategory(it)
+    }.flowOn(Dispatchers.Default)
 
     //Random joke by category as live data
-    val categoryJokesResult = randomJokesByCategoryFlow.asLiveData()
+    val categoryJokesResult = randomJokesByCategoryFlow
+        .flowOn(Dispatchers.Default)
+        .asLiveData()
 
     // Events
     private val categoryEventChannel = Channel<CategoryEvent>()

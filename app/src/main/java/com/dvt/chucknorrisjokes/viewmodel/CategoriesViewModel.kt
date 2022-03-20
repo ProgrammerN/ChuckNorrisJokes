@@ -2,8 +2,10 @@ package com.dvt.chucknorrisjokes.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.dvt.chucknorrisjokes.repository.JokesRepository
+import com.dvt.chucknorrisjokes.repository.DefaultJokesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 /**
@@ -11,8 +13,9 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class CategoriesViewModel @Inject constructor(repository: JokesRepository) : ViewModel() {
+class CategoriesViewModel @Inject constructor(repositoryDefault: DefaultJokesRepository) : ViewModel() {
 
-    val categories = repository.getJokesCategories().asLiveData()
+    val categories = repositoryDefault.getJokesCategories()
+        .flowOn(Dispatchers.Default).asLiveData()
 
 }

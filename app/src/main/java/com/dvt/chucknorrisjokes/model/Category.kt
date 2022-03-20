@@ -28,4 +28,12 @@ class Category(
 
         return true
     }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + category.hashCode()
+        return result
+    }
+
+
 }

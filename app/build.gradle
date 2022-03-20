@@ -47,11 +47,13 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.legacy:legacy-support-v4:$legacySupportVersion"
 
     // Fragment
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    // ViewPager2
+    implementation "androidx.viewpager2:viewpager2:$viewpager2Version"
 
     // Navigation Component
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -72,12 +74,12 @@ dependencies {
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltVieModel"
 
     // LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha04")
     implementation("androidx.activity:activity-ktx:1.5.0-alpha03")
 
     // Glide
-    implementation "com.github.bumptech.glide:glide:4.11.0"
+    implementation 'com.github.bumptech.glide:glide:4.13.1'
 
     //Timber Debugging
     implementation "com.jakewharton.timber:timber:$timberVersion"
@@ -98,12 +100,17 @@ dependencies {
     androidTestImplementation "androidx.arch.core:core-testing:$androidCoreTesting"
     androidTestImplementation "com.google.truth:truth:$truthVersion"
     androidTestImplementation "org.mockito:mockito-core:$mockitoTestingVersion"
-    androidTestImplementation "androidx.test.ext:junit:$testExtJunitVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+
+    androidTestImplementation("androidx.test.ext:junit:$testExtJunitVersion")
+    androidTestImplementation( "androidx.test.espresso:espresso-core:$espressoVersion")
+    androidTestImplementation( "androidx.test.espresso:espresso-contrib:$espressoVersion"){
+        exclude group: 'org.checkerframework', module: 'checker'
+    }
     androidTestImplementation("androidx.navigation:navigation-testing:$androidTestNavigation")
     androidTestImplementation("com.google.dagger:hilt-android-testing:$daggerTestingVersion")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:$daggerTestingVersion")
     debugImplementation("androidx.fragment:fragment-testing:$fragmentTestingVersion")
+    androidTestImplementation( "androidx.test.espresso:espresso-idling-resource:$espressoVersion")
 
     // Lottie Animation
     implementation "com.airbnb.android:lottie:$lottieVersion"

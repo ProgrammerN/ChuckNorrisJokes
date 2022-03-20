@@ -142,7 +142,7 @@ class JokeDaoTest {
             "Chuck Norris once kicked a horse in the chin. Its decendants are known today as Giraffes."
         )
         jokeDao.insertFavoriteJoke(jokeItem)
-        val allJokeItems = jokeDao.getFavoritedJokes().asLiveData().getOrAwaitValue()
+        val allJokeItems = jokeDao.getFavoriteJokes().asLiveData().getOrAwaitValue()
         assertThat(allJokeItems).contains(jokeItem)
     }
 

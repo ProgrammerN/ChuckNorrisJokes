@@ -25,12 +25,11 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories), CategoryAdapt
 
     private val viewModel: CategoriesViewModel by viewModels()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentCategoriesBinding.bind(view)
-
         val categoryAdapter = CategoryAdapter(this)
-
         binding.apply {
             recyclerViewCategories.apply {
                 adapter = categoryAdapter

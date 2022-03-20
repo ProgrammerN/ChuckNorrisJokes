@@ -1,6 +1,7 @@
 package com.dvt.chucknorrisjokes.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.dvt.chucknorrisjokes.repositories.FakeDefaultJokesRepository
 import com.dvt.chucknorrisjokes.room.JokeDao
 import com.dvt.chucknorrisjokes.room.JokesDatabase
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -19,8 +20,6 @@ class JokesViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -42,7 +41,7 @@ class JokesViewModelTest {
         hiltRule.inject()
         jokeDao = database.JokeDao()
 
-        //viewModel = JokesViewModel(repository = JokesRepository(apiService =, db = database))
+        //viewModel = JokesViewModel(FakeDefaultJokesRepository())
     }
 
 }
