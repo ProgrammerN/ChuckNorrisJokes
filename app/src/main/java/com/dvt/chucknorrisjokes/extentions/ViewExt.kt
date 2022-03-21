@@ -2,6 +2,10 @@ package com.dvt.chucknorrisjokes.extentions
 
 import androidx.appcompat.widget.SearchView
 
+/**
+ * Transforms SearchView to an extension function ignoring onQueryTextSubmit.
+ */
+
 inline fun SearchView.onQueryTextChanged(crossinline listener: (String) -> Unit) {
 
     this.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

@@ -1,5 +1,11 @@
 package com.dvt.chucknorrisjokes.util
 
+
+/**
+ * A generic class that holds a value from cache or network and with its loading status.
+ * @param <T>
+ */
+
 sealed class Resource<T>(
     val data: T? = null,
     val error: Throwable? = null
