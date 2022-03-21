@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.dvt.chucknorrisjokes.R
@@ -59,7 +60,6 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
 
             viewModel.queryJokeResults.observe(viewLifecycleOwner) { result ->
                 Timber.d("Status $result")
-
                 result.data?.let {
                     jokeAdapter.setJokes(it)
                 }
@@ -128,31 +128,6 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
     override fun onDestroyView() {
         super.onDestroyView()
         searchView.setOnQueryTextListener(null)
-    }
-
-    /*override fun onDetach() {
-        super.onDetach()
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        hideSystemUI()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        requireActivity().window.statusBarColor = Color.WHITE
-    }*/
-
-    override fun onResume() {
-        super.onResume()
-        activity?.window?.statusBarColor = Color.TRANSPARENT
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        activity?.window?.statusBarColor = Color.WHITE
     }
 
 }
