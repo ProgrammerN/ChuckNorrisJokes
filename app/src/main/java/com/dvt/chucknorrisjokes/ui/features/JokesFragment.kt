@@ -1,5 +1,6 @@
 package com.dvt.chucknorrisjokes.ui.features
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -103,7 +104,6 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
         }
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_fragment_jokes, menu)
 
@@ -129,4 +129,30 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
         super.onDestroyView()
         searchView.setOnQueryTextListener(null)
     }
+
+    /*override fun onDetach() {
+        super.onDetach()
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        hideSystemUI()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().window.statusBarColor = Color.WHITE
+    }*/
+
+    override fun onResume() {
+        super.onResume()
+        activity?.window?.statusBarColor = Color.TRANSPARENT
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.window?.statusBarColor = Color.WHITE
+    }
+
 }
