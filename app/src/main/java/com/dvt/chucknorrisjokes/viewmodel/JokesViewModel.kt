@@ -1,8 +1,10 @@
 package com.dvt.chucknorrisjokes.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.dvt.chucknorrisjokes.model.FavoriteJoke
 import com.dvt.chucknorrisjokes.repository.JokesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +21,7 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class JokesViewModel @Inject constructor(repositoryDefault: JokesRepository) : ViewModel() {
+class JokesViewModel @Inject constructor(private val repositoryDefault: JokesRepository) : ViewModel() {
 
     val joke = repositoryDefault.getRandomJoke()
         .flowOn(Dispatchers.Default).asLiveData()
@@ -48,16 +50,61 @@ class JokesViewModel @Inject constructor(repositoryDefault: JokesRepository) : V
         .flowOn(Dispatchers.Default)
         .asLiveData()
 
-    // Events
-    private val categoryEventChannel = Channel<CategoryEvent>()
-    val categoryEvent = categoryEventChannel.receiveAsFlow()
+    // Category Events
+    private val jokesEventChannel = Channel<JokesEvent>()
+    val jokesEvent = jokesEventChannel.receiveAsFlow()
+
 
     fun chooseCategoryClick() = viewModelScope.launch {
-        categoryEventChannel.send(CategoryEvent.NavigateToCategoriesScreen)
+        jokesEventChannel.send(JokesEvent.NavigateToCategoriesScreen)
     }
 
-    sealed class CategoryEvent {
-        object NavigateToCategoriesScreen : CategoryEvent()
+    fun goToFavoriteClick() = viewModelScope.launch {
+        jokesEventChannel.send(JokesEvent.NavigateToFavoriteJokesScreen)
+    }
+
+    fun favoriteJoke(joke: FavoriteJoke) = viewModelScope.launch {
+        repositoryDefault.favoriteJoke(joke)
+    }
+
+    fun removeFavoriteJoke(joke: FavoriteJoke) = viewModelScope.launch {
+        repositoryDefault.removeFavoriteJoke(joke)
+    }
+
+    fun deleteAllFavorites() = viewModelScope.launch {
+        repositoryDefault.deleteAllFavorites()
+    }
+
+    sealed class JokesEvent {
+        object NavigateToCategoriesScreen : JokesEvent()
+        object NavigateToFavoriteJokesScreen : JokesEvent()
+    }
+
+
+    private val _favoriteJokes = MutableLiveData<List<FavoriteJoke>>()
+
+    private val _isFavorite = MutableLiveData<Boolean>()
+
+    fun favoriteJokes(): MutableLiveData<List<FavoriteJoke>> {
+        return _favoriteJokes
+    }
+
+    val id = MutableStateFlow("")
+
+    private val isJokeByIdExist = id.flatMapLatest {
+        repositoryDefault.favoriteExists(it)
+    }.flowOn(Dispatchers.Default)
+
+
+    val isFavorite = isJokeByIdExist.flowOn(Dispatchers.Default).asLiveData()
+
+    init {
+        viewModelScope.launch {
+            repositoryDefault.getFavorites().collect { jokeResults ->
+                _favoriteJokes.value = jokeResults
+            }
+
+        }
     }
 
 }

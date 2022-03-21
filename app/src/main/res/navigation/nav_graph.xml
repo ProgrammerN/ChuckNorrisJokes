@@ -12,11 +12,19 @@
         <action
             android:id="@+id/action_jokesFragment_to_chooseCategoryFragment"
             app:destination="@id/categoriesFragment" />
+        <action
+            android:id="@+id/action_jokesFragment_to_favoriteJokesFragment"
+            app:destination="@id/favoriteJokesFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.dvt.chucknorrisjokes.ui.features.CategoriesFragment"
         android:label="Joke Categories"
         tools:layout="@layout/fragment_categories"/>
+    <fragment
+        android:id="@+id/favoriteJokesFragment"
+        android:name="com.dvt.chucknorrisjokes.ui.features.FavoriteJokesFragment"
+        android:label="Favorite Jokes"
+        tools:layout="@layout/fragment_favorite_jokes" />
 
 </navigation>

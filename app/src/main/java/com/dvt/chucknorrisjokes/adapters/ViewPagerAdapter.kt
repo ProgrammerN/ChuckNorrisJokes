@@ -2,17 +2,21 @@ package com.dvt.chucknorrisjokes.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import com.dvt.chucknorrisjokes.R
 import com.dvt.chucknorrisjokes.databinding.JokeItemBinding
 import com.dvt.chucknorrisjokes.extentions.share
+import com.dvt.chucknorrisjokes.extentions.toast
+import com.dvt.chucknorrisjokes.model.FavoriteJoke
 import com.dvt.chucknorrisjokes.model.Joke
 import com.dvt.chucknorrisjokes.util.RandomColor
+import com.dvt.chucknorrisjokes.viewmodel.JokesViewModel
 
 /**
  * View Pager Adapter for the joke list
  */
-class ViewPagerAdapter(private val condition: ConditionViewPager) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
+class ViewPagerAdapter(private val condition: ConditionViewPager, private val viewModel: JokesViewModel, private val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
 
     private lateinit var dataValue: List<Joke>
 
@@ -51,14 +55,28 @@ class ViewPagerAdapter(private val condition: ConditionViewPager) : RecyclerView
 
     inner class ViewPagerViewHolder(private val binding: JokeItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(joke: Joke, position: Int, fullSize: Int) {
-            binding.joke = joke
-            binding.randomColor = RandomColor
-            binding.viewPagerViewHolder = this@ViewPagerViewHolder
-            binding.executePendingBindings()
-            binding.apply {
-                animationView.isVisible = fullSize > 1 && position + 1 < fullSize
+        init {
+            viewModel.isFavorite.observe(viewLifecycleOwner) {
+                if (it) {
+                    binding.fabFavorite.setImageResource(R.drawable.ic_favorited)
+                } else {
+                    binding.fabFavorite.setImageResource(R.drawable.ic_favorite)
+                }
+
+                binding.isFavorite = it
             }
+        }
+
+        fun bind(mJoke: Joke, mPosition: Int, mFullSize: Int) {
+            binding.apply {
+                joke = mJoke
+                randomColor = RandomColor
+                viewPagerViewHolder = this@ViewPagerViewHolder
+                fullSize = mFullSize
+                position = mPosition
+                executePendingBindings()
+            }
+            viewModel.id.value = mJoke.id
         }
 
         fun onShareAction(joke: Joke) {
@@ -66,7 +84,15 @@ class ViewPagerAdapter(private val condition: ConditionViewPager) : RecyclerView
         }
 
         fun onFavoriteAction(joke: Joke) {
-            //TODO: add and remove from to favorites
+            val favoriteJoke = FavoriteJoke(joke.categories, joke.createdAt, joke.iconUrl, joke.id, joke.updatedAt, joke.url, joke.value)
+            viewModel.favoriteJoke(favoriteJoke)
+            binding.root.context.toast("Joke added to favorites")
+        }
+
+        fun onRemoveFavoriteAction(joke: Joke) {
+            val favoriteJoke = FavoriteJoke(joke.categories, joke.createdAt, joke.iconUrl, joke.id, joke.updatedAt, joke.url, joke.value)
+            viewModel.removeFavoriteJoke(favoriteJoke)
+            binding.root.context.toast("Joke removed from favorites")
         }
     }
 

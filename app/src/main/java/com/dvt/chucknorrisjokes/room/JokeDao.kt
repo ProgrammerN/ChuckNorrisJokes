@@ -1,12 +1,9 @@
 package com.dvt.chucknorrisjokes.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.dvt.chucknorrisjokes.model.Category
-import com.dvt.chucknorrisjokes.model.Joke
 import com.dvt.chucknorrisjokes.model.FavoriteJoke
+import com.dvt.chucknorrisjokes.model.Joke
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -73,6 +70,22 @@ interface JokeDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavoriteJoke(joke: FavoriteJoke)
+
+    /**
+     * Remove a favorite joke in the database
+     *
+     * @param joke the joke to be removed.
+     */
+    @Delete
+    suspend fun removeFavoriteJoke(joke: FavoriteJoke)
+
+    /**
+     * Checks if jokes exists in favorites tables.
+     *
+     * @param id the joke to be inserted.
+     */
+    @Query("SELECT EXISTS(SELECT * FROM favorites_table WHERE id=(:id))")
+    fun favoriteExists(id: String): Flow<Boolean>
 
     /**
      * Insert a list of jokes in the database. If the list already exists, replace it.

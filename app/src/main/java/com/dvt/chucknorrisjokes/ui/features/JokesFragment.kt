@@ -1,6 +1,5 @@
 package com.dvt.chucknorrisjokes.ui.features
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -12,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.dvt.chucknorrisjokes.R
@@ -39,7 +37,7 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentJokesBinding.bind(view)
-        val jokeAdapter = ViewPagerAdapter(this)
+        val jokeAdapter = ViewPagerAdapter(this, viewModel,viewLifecycleOwner)
 
         binding.apply {
             viewPager.apply {
@@ -85,10 +83,15 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.categoryEvent.collect { event ->
+            viewModel.jokesEvent.collect { event ->
                 when (event) {
-                    is JokesViewModel.CategoryEvent.NavigateToCategoriesScreen -> {
+                    is JokesViewModel.JokesEvent.NavigateToCategoriesScreen -> {
                         val action = JokesFragmentDirections.actionJokesFragmentToChooseCategoryFragment()
+                        findNavController().navigate(action)
+                    }
+
+                    is JokesViewModel.JokesEvent.NavigateToFavoriteJokesScreen -> {
+                        val action = JokesFragmentDirections.actionJokesFragmentToFavoriteJokesFragment()
                         findNavController().navigate(action)
                     }
                 }
@@ -119,6 +122,10 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
         return when (item.itemId) {
             R.id.action_categories -> {
                 viewModel.chooseCategoryClick()
+                true
+            }
+            R.id.action_favorites -> {
+                viewModel.goToFavoriteClick()
                 true
             }
             else -> super.onOptionsItemSelected(item)

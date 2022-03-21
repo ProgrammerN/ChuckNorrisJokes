@@ -2,9 +2,11 @@ package com.dvt.chucknorrisjokes.repository
 
 import androidx.room.withTransaction
 import com.dvt.chucknorrisjokes.model.Category
+import com.dvt.chucknorrisjokes.model.FavoriteJoke
 import com.dvt.chucknorrisjokes.retrofit.JokesApiService
 import com.dvt.chucknorrisjokes.room.JokesDatabase
 import com.dvt.chucknorrisjokes.util.networkBoundResource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
@@ -13,10 +15,7 @@ import javax.inject.Inject
  * Save results from remote server to local room database fro later use as cache
  * In the event there is no network result is fetched from local cache
  */
-open class DefaultJokesRepository @Inject constructor(
-    private val apiService: JokesApiService,
-    private val db: JokesDatabase
-) : JokesRepository {
+open class DefaultJokesRepository @Inject constructor(private val apiService: JokesApiService, private val db: JokesDatabase) : JokesRepository {
 
     private val jokesJokeDao = db.JokeDao()
 
@@ -80,4 +79,25 @@ open class DefaultJokesRepository @Inject constructor(
             }
         }
     )
+
+    override suspend fun favoriteJoke(joke: FavoriteJoke) {
+        jokesJokeDao.insertFavoriteJoke(joke)
+    }
+
+    override suspend fun removeFavoriteJoke(joke: FavoriteJoke) {
+        jokesJokeDao.removeFavoriteJoke(joke)
+    }
+
+    override suspend fun deleteAllFavorites() {
+        jokesJokeDao.deleteAllFavoriteJokes()
+    }
+
+    override suspend fun getFavorites(): Flow<List<FavoriteJoke>> {
+        return jokesJokeDao.getFavoriteJokes()
+    }
+
+    override suspend fun favoriteExists(id: String): Flow<Boolean> {
+        return jokesJokeDao.favoriteExists(id)
+    }
+
 }

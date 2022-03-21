@@ -12,6 +12,10 @@
             type="com.dvt.chucknorrisjokes.model.Joke" />
 
         <variable
+            name="isFavorite"
+            type="Boolean" />
+
+        <variable
             name="fullSize"
             type="int" />
 
@@ -85,7 +89,7 @@
                 android:id="@+id/animationView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="@{(fullSize > 1 &amp; position + 1 &lt; fullSize) ? View.GONE : View.VISIBLE}"
+                android:visibility="@{(fullSize > 1 &amp;&amp; position + 1 &lt; fullSize) ? View.VISIBLE : View.INVISIBLE}"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/swipe_up_animation"
@@ -103,8 +107,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:contentDescription="@string/app_name"
-                    android:onClick="@{() -> viewPagerViewHolder.onFavoriteAction(joke)}"
-                    android:src="@drawable/ic_favorite" />
+                    android:onClick="@{()-> isFavorite ? viewPagerViewHolder.onRemoveFavoriteAction(joke): viewPagerViewHolder.onFavoriteAction(joke) }"
+                    android:src="@drawable/ic_favorite"
+                    app:tint="@color/white" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fabShare"
@@ -113,7 +118,10 @@
                     android:layout_margin="8dp"
                     android:contentDescription="@string/app_name"
                     android:onClick="@{() -> viewPagerViewHolder.onShareAction(joke)}"
-                    android:src="@drawable/ic_share" />
+                    android:src="@drawable/ic_share"
+                    app:tint="@color/white" />
+
+
             </LinearLayout>
         </LinearLayout>
 

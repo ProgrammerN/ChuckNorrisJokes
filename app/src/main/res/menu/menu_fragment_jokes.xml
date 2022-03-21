@@ -15,4 +15,10 @@
         android:title="Categories"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_favorites"
+        android:icon="@drawable/ic_favorited"
+        android:title="Favorites"
+        app:showAsAction="never" />
+
 </menu>
