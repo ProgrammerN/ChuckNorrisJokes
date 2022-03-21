@@ -100,7 +100,7 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
 
     override fun condition(position: Int, fullSize: Int) {
         if (position == fullSize) {
-            //TODO implement on las item selected
+            //TODO implement on swipe items finished
         }
     }
 

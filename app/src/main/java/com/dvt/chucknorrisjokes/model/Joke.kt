@@ -1,8 +1,11 @@
 package com.dvt.chucknorrisjokes.model
 
 import android.os.Parcelable
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.bumptech.glide.Glide
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -27,5 +30,15 @@ data class Joke(
     @SerializedName("updated_at") val updatedAt: String,
     val url: String,
     val value: String
-) : Parcelable
+) : Parcelable {
+
+    companion object {
+        @JvmStatic
+        @BindingAdapter("iconUrl")
+        fun displayIcon(imageViewIcon: ImageView, iconUrl: String) {
+            Glide.with(imageViewIcon.context).load(iconUrl).into(imageViewIcon)
+        }
+    }
+
+}
 

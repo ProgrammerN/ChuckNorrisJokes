@@ -10,7 +10,6 @@ import com.dvt.chucknorrisjokes.databinding.CategoryItemBinding
 import com.dvt.chucknorrisjokes.model.Category
 import com.dvt.chucknorrisjokes.util.RandomColor
 import javax.inject.Inject
-
 /**
  * Adapter for the category list. Has a reference to the [OnItemClickListener] to listen to click events.
  */
@@ -26,25 +25,18 @@ class CategoryAdapter @Inject constructor(private val listener: OnItemClickListe
         holder.bind(currentItem)
     }
 
-    inner class CategoryViewHolder(private val binding: CategoryItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.apply {
-                root.setCardBackgroundColor(binding.root.context.resources.getColor(RandomColor.randomBackgroundColor()))
-                root.setOnClickListener {
-                    val position = adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val category = getItem(position)
-                        listener.onItemClick(category)
-                    }
-                }
-            }
-        }
-
+    inner class CategoryViewHolder(private val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(category: Category) {
-            binding.apply {
-                textViewCategory.text = category.category
+            binding.category = category
+            binding.randomColor = RandomColor
+            binding.categoryViewHolder = this@CategoryViewHolder
+            binding.executePendingBindings()
+        }
+        fun onClickAction() {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                val category = getItem(position)
+                listener.onItemClick(category)
             }
         }
     }

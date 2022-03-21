@@ -1,84 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:layout_editor_absoluteX="-68dp"
-    tools:layout_editor_absoluteY="-102dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/imageViewIcon"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="44dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewJoke"
-        app:layout_constraintEnd_toEndOf="@+id/textViewJoke"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="TODO" />
+    <data>
 
-    <TextView
-        android:id="@+id/textViewJoke"
+        <import type="android.view.View" />
+
+        <variable
+            name="joke"
+            type="com.dvt.chucknorrisjokes.model.Joke" />
+
+        <variable
+            name="fullSize"
+            type="int" />
+
+        <variable
+            name="position"
+            type="int" />
+
+        <variable
+            name="randomColor"
+            type="com.dvt.chucknorrisjokes.util.RandomColor" />
+
+        <variable
+            name="viewPagerViewHolder"
+            type="com.dvt.chucknorrisjokes.adapters.ViewPagerAdapter.ViewPagerViewHolder" />
+
+        <variable
+            name="favoriteJoke"
+            type="com.dvt.chucknorrisjokes.model.FavoriteJoke" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51"
-        tools:text="Hello World!" />
+        android:layout_height="match_parent"
+        android:background="@{context.getResources().getColor(randomColor.randomBackgroundColor)}"
+        tools:layout_editor_absoluteX="-68dp"
+        tools:layout_editor_absoluteY="-102dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        <ImageView
+            android:id="@+id/imageViewIcon"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="44dp"
+            android:contentDescription="TODO"
+            app:iconUrl="@{joke.iconUrl}"
+            app:layout_constraintBottom_toTopOf="@+id/textViewJoke"
+            app:layout_constraintEnd_toEndOf="@+id/textViewJoke"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationView"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textViewJoke"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            android:visibility="invisible"
-            tools:visibility="visible"
-            app:lottie_rawRes="@raw/swipe_up_animation" />
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.51"
+            tools:text="@{joke.value}" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
                 android:layout_width="wrap_content"
-                android:id="@+id/fabFavorite"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_favorite" />
+                android:visibility="@{(fullSize > 1 &amp; position + 1 &lt; fullSize) ? View.GONE : View.VISIBLE}"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/swipe_up_animation"
+                tools:visibility="visible" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:id="@+id/fabShare"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_share" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/app_name"
+                    android:onClick="@{() -> viewPagerViewHolder.onFavoriteAction(joke)}"
+                    android:src="@drawable/ic_favorite" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/app_name"
+                    android:onClick="@{() -> viewPagerViewHolder.onShareAction(joke)}"
+                    android:src="@drawable/ic_share" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
