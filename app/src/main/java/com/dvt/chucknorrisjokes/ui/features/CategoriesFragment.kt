@@ -9,6 +9,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.test.espresso.idling.CountingIdlingResource
 import com.dvt.chucknorrisjokes.R
 import com.dvt.chucknorrisjokes.adapters.CategoryAdapter
 import com.dvt.chucknorrisjokes.databinding.FragmentCategoriesBinding
@@ -16,6 +17,7 @@ import com.dvt.chucknorrisjokes.model.Category
 import com.dvt.chucknorrisjokes.util.Resource
 import com.dvt.chucknorrisjokes.viewmodel.CategoriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 /**
  * Display a grid of [Category]s. User can select a category
@@ -25,6 +27,7 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories), CategoryAdapt
 
     private val viewModel: CategoriesViewModel by viewModels()
 
+    var idlingResource: CountingIdlingResource = CountingIdlingResource("Loader")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

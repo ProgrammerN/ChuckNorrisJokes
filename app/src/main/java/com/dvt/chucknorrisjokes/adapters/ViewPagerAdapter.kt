@@ -76,7 +76,7 @@ class ViewPagerAdapter(private val condition: ConditionViewPager, private val vi
                 position = mPosition
                 executePendingBindings()
             }
-            viewModel.id.value = mJoke.id
+            viewModel.jokeId.value = mJoke.id
         }
 
         fun onShareAction(joke: Joke) {

@@ -25,6 +25,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
+
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 @ExperimentalCoroutinesApi
@@ -36,6 +37,7 @@ class CategoriesFragmentTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
+
 
     @Before
     fun setup() {
@@ -51,9 +53,10 @@ class CategoriesFragmentTest {
         launchFragmentInHiltContainer<CategoriesFragment>() {
             Navigation.setViewNavController(requireView(), navController)
             val categoryAdapter = recyclerViewCategories.adapter as CategoryAdapter
-            categoryAdapter.submitList(listOf(Category(0, "animal")))
+            categoryAdapter.submitList(listOf(Category(1, "animal"), Category(2, "dev")))
 
         }
+
         onView(withId(R.id.recyclerViewCategories))
             .perform(
                 RecyclerViewActions

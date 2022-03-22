@@ -83,25 +83,21 @@ class JokesViewModel @Inject constructor(private val repositoryDefault: JokesRep
 
     private val _favoriteJokes = MutableLiveData<List<FavoriteJoke>>()
 
-    private val _isFavorite = MutableLiveData<Boolean>()
-
     fun favoriteJokes(): MutableLiveData<List<FavoriteJoke>> {
-        return _favoriteJokes
-    }
-
-    val id = MutableStateFlow("")
-
-    private val isJokeByIdExist = id.flatMapLatest {
-        repositoryDefault.favoriteExists(it)
-    }.flowOn(Dispatchers.Default)
-
-    val isFavorite = isJokeByIdExist.flowOn(Dispatchers.Default).asLiveData()
-
-    init {
         viewModelScope.launch(Dispatchers.Default) {
             repositoryDefault.getFavorites().collect { jokeResults ->
                 _favoriteJokes.value = jokeResults
             }
         }
+        return _favoriteJokes
     }
+
+    val jokeId = MutableStateFlow("")
+
+    private val isJokeByIdExist = jokeId.flatMapLatest {
+        repositoryDefault.favoriteExists(it)
+    }.flowOn(Dispatchers.Default)
+
+    val isFavorite = isJokeByIdExist.flowOn(Dispatchers.Default).asLiveData()
+
 }

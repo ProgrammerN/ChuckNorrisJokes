@@ -86,6 +86,9 @@ dependencies {
     //Timber Debugging
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
+    //Espresso
+    implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
+
     // Local Unit Tests
     implementation "androidx.test:core:$androidCoreTestVersion"
     testImplementation "junit:junit:$junitVersion"
@@ -104,15 +107,16 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-core:$mockitoTestingVersion"
 
     androidTestImplementation("androidx.test.ext:junit:$testExtJunitVersion")
-    androidTestImplementation( "androidx.test.espresso:espresso-core:$espressoVersion")
-    androidTestImplementation( "androidx.test.espresso:espresso-contrib:$espressoVersion"){
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
+    androidTestImplementation("androidx.test.espresso:espresso-idling-resource:3.1.0$espressoVersion")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:$espressoVersion") {
         exclude group: 'org.checkerframework', module: 'checker'
     }
     androidTestImplementation("androidx.navigation:navigation-testing:$androidTestNavigation")
     androidTestImplementation("com.google.dagger:hilt-android-testing:$daggerTestingVersion")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:$daggerTestingVersion")
     debugImplementation("androidx.fragment:fragment-testing:$fragmentTestingVersion")
-    androidTestImplementation( "androidx.test.espresso:espresso-idling-resource:$espressoVersion")
+    androidTestImplementation("androidx.test.espresso:espresso-idling-resource:$espressoVersion")
 
     // Lottie Animation
     implementation "com.airbnb.android:lottie:$lottieVersion"
