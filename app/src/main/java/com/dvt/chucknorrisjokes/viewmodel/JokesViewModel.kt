@@ -95,16 +95,13 @@ class JokesViewModel @Inject constructor(private val repositoryDefault: JokesRep
         repositoryDefault.favoriteExists(it)
     }.flowOn(Dispatchers.Default)
 
-
     val isFavorite = isJokeByIdExist.flowOn(Dispatchers.Default).asLiveData()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.Default) {
             repositoryDefault.getFavorites().collect { jokeResults ->
                 _favoriteJokes.value = jokeResults
             }
-
         }
     }
-
 }
