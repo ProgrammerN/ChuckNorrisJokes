@@ -59,7 +59,6 @@ class JokesViewModelTest {
     @Before
     fun createRepository() {
         fakeDataSource = FakeDataSource(remoteTasks.toMutableList(), remoteCategories.toMutableList())
-
         fakeDefaultJokesRepository = FakeDefaultJokesRepository(fakeDataSource)
     }
 

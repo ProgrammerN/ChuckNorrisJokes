@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Chuck Norris Jokes</string>
+    <string name="favorites">Favorites</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
