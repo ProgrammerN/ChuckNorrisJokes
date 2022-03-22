@@ -6,6 +6,7 @@ import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -23,11 +24,11 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
 
-@RunWith(AndroidJUnit4::class)
+
 @MediumTest
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
-class FavoritesFragmentTest {
+class FavoriteJokesFragmentTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -38,6 +39,19 @@ class FavoritesFragmentTest {
     @Before
     fun setup() {
         hiltRule.inject()
+    }
+
+    @Test
+    fun openDeleteAllFavoritesMenuItem() {
+        val navController = mock(NavController::class.java)
+        launchFragmentInHiltContainer<FavoriteJokesFragment> {
+            Navigation.setViewNavController(requireView(), navController)
+        }
+
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
+
+        onView(ViewMatchers.withText(R.string.clear_all_favorites)).perform(click())
+
     }
 
 }

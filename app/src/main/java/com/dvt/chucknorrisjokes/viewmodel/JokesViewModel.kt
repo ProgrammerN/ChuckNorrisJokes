@@ -63,15 +63,15 @@ class JokesViewModel @Inject constructor(private val repositoryDefault: JokesRep
         jokesEventChannel.send(JokesEvent.NavigateToFavoriteJokesScreen)
     }
 
-    fun favoriteJoke(joke: FavoriteJoke) = viewModelScope.launch {
+    fun favoriteJoke(joke: FavoriteJoke) = viewModelScope.launch(Dispatchers.Default) {
         repositoryDefault.favoriteJoke(joke)
     }
 
-    fun removeFavoriteJoke(joke: FavoriteJoke) = viewModelScope.launch {
+    fun removeFavoriteJoke(joke: FavoriteJoke) = viewModelScope.launch(Dispatchers.Default) {
         repositoryDefault.removeFavoriteJoke(joke)
     }
 
-    fun deleteAllFavorites() = viewModelScope.launch {
+    fun deleteAllFavorites() = viewModelScope.launch(Dispatchers.Default) {
         repositoryDefault.deleteAllFavorites()
     }
 

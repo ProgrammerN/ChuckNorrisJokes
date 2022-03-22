@@ -79,7 +79,6 @@ class JokesFragmentTest {
         }
 
         onView(withId(R.id.action_search)).perform(click())
-
     }
 
     @Test
