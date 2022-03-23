@@ -1,13 +1,14 @@
 package com.dvt.chucknorrisjokes.repositories
 
-import androidx.lifecycle.asLiveData
 import com.dvt.chucknorrisjokes.MainCoroutineRule
 import com.dvt.chucknorrisjokes.model.Category
 import com.dvt.chucknorrisjokes.model.Joke
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -59,6 +60,9 @@ class DefaultTasksRepositoryTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
+    private val dispatcher = TestCoroutineDispatcher()
+    private val testScope = TestCoroutineScope(dispatcher)
+
     @Before
     fun createRepository() {
         fakeDataSource = FakeDataSource(remoteJokes.toMutableList(), remoteCategories.toMutableList())
@@ -66,14 +70,18 @@ class DefaultTasksRepositoryTest {
         fakeDefaultJokesRepository = FakeDefaultJokesRepository(fakeDataSource)
     }
 
-    /*@Test
-    fun getJokes_requestsAllJokesFromRemoteDataSource() = mainCoroutineRule.runBlockingTest {
+    @Test
+    fun requestsAllJokesFromRemoteDataSource_CheckRandomJoke() = mainCoroutineRule.runBlockingTest {
         // When a random jokes is requested from the jokes repository
-        val joke = fakeDefaultJokesRepository.getRandomJoke().asLiveData()
+        var joke: Joke? = null
+        testScope.launch {
+            fakeDefaultJokesRepository.getRandomJoke().collect { jokeResults ->
+                joke = jokeResults.data
+            }
+        }
 
-        // Then random joke is loaded from source
-        Truth.assertThat(remoteJokes).contains(joke.value?.data)
-    }*/
+        Truth.assertThat(remoteJokes).contains(joke)
+    }
 
 }
 
