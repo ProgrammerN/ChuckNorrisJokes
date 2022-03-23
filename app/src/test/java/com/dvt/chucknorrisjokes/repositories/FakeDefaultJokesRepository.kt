@@ -1,6 +1,7 @@
 package com.dvt.chucknorrisjokes.repositories
 
 import com.dvt.chucknorrisjokes.model.Category
+import com.dvt.chucknorrisjokes.model.FavoriteJoke
 import com.dvt.chucknorrisjokes.repository.JokesRepository
 import com.dvt.chucknorrisjokes.util.Resource
 import com.dvt.chucknorrisjokes.util.networkBoundResource
@@ -57,6 +58,26 @@ class FakeDefaultJokesRepository(private val fakeDataSource: FakeDataSource) : J
 
         }
     ).flowOn(Dispatchers.Default)
+
+    override suspend fun favoriteJoke(joke: FavoriteJoke) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun removeFavoriteJoke(joke: FavoriteJoke) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteAllFavorites() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getFavorites(): Flow<List<FavoriteJoke>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun favoriteExists(id: String): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
 
 }
 

@@ -66,14 +66,14 @@ class DefaultTasksRepositoryTest {
         fakeDefaultJokesRepository = FakeDefaultJokesRepository(fakeDataSource)
     }
 
-    @Test
+    /*@Test
     fun getJokes_requestsAllJokesFromRemoteDataSource() = mainCoroutineRule.runBlockingTest {
         // When a random jokes is requested from the jokes repository
         val joke = fakeDefaultJokesRepository.getRandomJoke().asLiveData()
 
         // Then random joke is loaded from source
         Truth.assertThat(remoteJokes).contains(joke.value?.data)
-    }
+    }*/
 
 }
 
