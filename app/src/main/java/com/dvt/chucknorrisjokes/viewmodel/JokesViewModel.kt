@@ -86,7 +86,7 @@ class JokesViewModel @Inject constructor(private val repositoryDefault: JokesRep
     fun favoriteJokes(): MutableLiveData<List<FavoriteJoke>> {
         viewModelScope.launch(Dispatchers.Default) {
             repositoryDefault.getFavorites().collect { jokeResults ->
-                _favoriteJokes.value = jokeResults
+                _favoriteJokes.postValue(jokeResults)
             }
         }
         return _favoriteJokes

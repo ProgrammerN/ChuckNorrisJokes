@@ -16,7 +16,7 @@ import com.dvt.chucknorrisjokes.viewmodel.JokesViewModel
 /**
  * View Pager Adapter for the joke list
  */
-class ViewPagerAdapter(private val condition: ConditionViewPager, private val viewModel: JokesViewModel, private val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
+class ViewPagerAdapter(private val viewModel: JokesViewModel, private val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
 
     private lateinit var dataValue: List<Joke>
 
@@ -32,7 +32,6 @@ class ViewPagerAdapter(private val condition: ConditionViewPager, private val vi
         if (dataValue[position] != null) {
             holder.bind(dataValue[position], position, dataValue.size)
         }
-        condition.condition(position, dataValue.size)
     }
 
     /**
@@ -103,8 +102,5 @@ class ViewPagerAdapter(private val condition: ConditionViewPager, private val vi
         return 0
     }
 
-    interface ConditionViewPager {
-        fun condition(position: Int, fullSize: Int)
-    }
 
 }

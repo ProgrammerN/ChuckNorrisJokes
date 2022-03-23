@@ -6,7 +6,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
@@ -49,14 +51,16 @@ class CategoriesFragmentTest {
     @Test
     fun pressItemInRecyclerViewAndNavigateBack() {
         val navController = mock(NavController::class.java)
-
         launchFragmentInHiltContainer<CategoriesFragment>() {
             Navigation.setViewNavController(requireView(), navController)
             val categoryAdapter = recyclerViewCategories.adapter as CategoryAdapter
-            categoryAdapter.submitList(listOf(Category(1, "animal"), Category(2, "dev")))
 
+            if (categoryAdapter.itemCount == 0) {
+                categoryAdapter.submitList(listOf(Category(1, "animal"), Category(2, "dev")))
+            }
         }
 
+        onView(withId(R.id.recyclerViewCategories)).check(ViewAssertions.matches(isDisplayed()));
         onView(withId(R.id.recyclerViewCategories))
             .perform(
                 RecyclerViewActions
@@ -65,6 +69,7 @@ class CategoriesFragmentTest {
 
         verify(navController).popBackStack()
     }
+
 
 }
 

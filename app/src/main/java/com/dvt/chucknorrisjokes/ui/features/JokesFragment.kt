@@ -29,7 +29,7 @@ import timber.log.Timber
  */
 
 @AndroidEntryPoint
-class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.ConditionViewPager {
+class JokesFragment : Fragment(R.layout.fragment_jokes) {
 
     private val viewModel: JokesViewModel by viewModels()
     private lateinit var searchView: SearchView
@@ -37,7 +37,7 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentJokesBinding.bind(view)
-        val jokeAdapter = ViewPagerAdapter(this, viewModel,viewLifecycleOwner)
+        val jokeAdapter = ViewPagerAdapter(viewModel, viewLifecycleOwner)
 
         binding.apply {
             viewPager.apply {
@@ -101,11 +101,6 @@ class JokesFragment : Fragment(R.layout.fragment_jokes), ViewPagerAdapter.Condit
         setHasOptionsMenu(true)
     }
 
-    override fun condition(position: Int, fullSize: Int) {
-        if (position == fullSize) {
-            //TODO implement on swipe items finished
-        }
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_fragment_jokes, menu)

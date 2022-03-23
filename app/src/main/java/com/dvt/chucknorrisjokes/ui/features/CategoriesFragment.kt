@@ -9,7 +9,6 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.test.espresso.idling.CountingIdlingResource
 import com.dvt.chucknorrisjokes.R
 import com.dvt.chucknorrisjokes.adapters.CategoryAdapter
 import com.dvt.chucknorrisjokes.databinding.FragmentCategoriesBinding
@@ -27,7 +26,6 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories), CategoryAdapt
 
     private val viewModel: CategoriesViewModel by viewModels()
 
-    var idlingResource: CountingIdlingResource = CountingIdlingResource("Loader")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,6 +49,7 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories), CategoryAdapt
         }
     }
 
+
     override fun onItemClick(category: Category) {
         setFragmentResult(
             "choose_category_request",
@@ -58,4 +57,6 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories), CategoryAdapt
         )
         findNavController().popBackStack()
     }
+
+
 }
