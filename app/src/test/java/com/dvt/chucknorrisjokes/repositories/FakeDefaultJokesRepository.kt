@@ -13,10 +13,10 @@ class FakeDefaultJokesRepository(private val fakeDataSource: FakeDataSource) : J
 
     override fun getRandomJoke() = networkBoundResource(
         query = {
-            fakeDataSource.queryJoke
+            fakeDataSource.queryRandomJoke()
         },
         fetch = {
-            fakeDataSource.queryJoke
+            fakeDataSource.queryRandomJoke()
         },
         saveFetchResult = { _ ->
 
@@ -25,10 +25,10 @@ class FakeDefaultJokesRepository(private val fakeDataSource: FakeDataSource) : J
 
     override fun getJokesFromQuery(searchQuery: String) = networkBoundResource(
         query = {
-            fakeDataSource.queryJokes
+            fakeDataSource.getJokesFromQuery(searchQuery)
         },
         fetch = {
-            fakeDataSource.queryJokes
+            fakeDataSource.getJokesFromQuery(searchQuery)
         },
         saveFetchResult = { _ ->
 
@@ -49,10 +49,10 @@ class FakeDefaultJokesRepository(private val fakeDataSource: FakeDataSource) : J
 
     override fun getJokesByCategory(category: String) = networkBoundResource(
         query = {
-            fakeDataSource.queryJokes
+            fakeDataSource.queryJokesByCategory(category)
         },
         fetch = {
-            fakeDataSource.queryJokes
+            fakeDataSource.queryJokesByCategory(category)
         },
         saveFetchResult = { _ ->
 
