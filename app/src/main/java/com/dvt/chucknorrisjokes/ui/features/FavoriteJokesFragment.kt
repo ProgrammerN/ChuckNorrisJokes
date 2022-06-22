@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.dvt.chucknorrisjokes.R
-import com.dvt.chucknorrisjokes.adapters.ViewPagerAdapter
+import com.dvt.chucknorrisjokes.adapters.JokeViewPagerAdapter
 import com.dvt.chucknorrisjokes.databinding.FragmentJokesBinding
 import com.dvt.chucknorrisjokes.extentions.toast
 import com.dvt.chucknorrisjokes.model.Joke
@@ -28,7 +28,7 @@ class FavoriteJokesFragment : Fragment(R.layout.fragment_jokes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentJokesBinding.bind(view)
-        val jokeAdapter = ViewPagerAdapter(viewModel, viewLifecycleOwner)
+        val jokeAdapter = JokeViewPagerAdapter(viewModel, viewLifecycleOwner)
 
         binding.apply {
             viewPager.apply {

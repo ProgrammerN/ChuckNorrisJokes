@@ -13,7 +13,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.dvt.chucknorrisjokes.R
-import com.dvt.chucknorrisjokes.adapters.CategoryAdapter
+import com.dvt.chucknorrisjokes.adapters.JokeCategoryAdapter
 import com.dvt.chucknorrisjokes.launchFragmentInHiltContainer
 import com.dvt.chucknorrisjokes.model.Category
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -53,10 +53,10 @@ class CategoriesFragmentTest {
         val navController = mock(NavController::class.java)
         launchFragmentInHiltContainer<CategoriesFragment>() {
             Navigation.setViewNavController(requireView(), navController)
-            val categoryAdapter = recyclerViewCategories.adapter as CategoryAdapter
+            val jokeCategoryAdapter = recyclerViewCategories.adapter as JokeCategoryAdapter
 
-            if (categoryAdapter.itemCount == 0) {
-                categoryAdapter.submitList(listOf(Category(1, "animal"), Category(2, "dev")))
+            if (jokeCategoryAdapter.itemCount == 0) {
+                jokeCategoryAdapter.submitList(listOf(Category(1, "animal"), Category(2, "dev")))
             }
         }
 

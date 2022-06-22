@@ -14,7 +14,7 @@
 
         <variable
             name="categoryViewHolder"
-            type="com.dvt.chucknorrisjokes.adapters.CategoryAdapter.CategoryViewHolder" />
+            type="com.dvt.chucknorrisjokes.adapters.JokeCategoryAdapter.CategoryViewHolder" />
 
     </data>
 

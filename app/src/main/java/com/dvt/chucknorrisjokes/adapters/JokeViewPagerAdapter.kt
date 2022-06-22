@@ -16,7 +16,7 @@ import com.dvt.chucknorrisjokes.viewmodel.JokesViewModel
 /**
  * View Pager Adapter for the joke list
  */
-class ViewPagerAdapter(private val viewModel: JokesViewModel, private val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder>() {
+class JokeViewPagerAdapter(private val viewModel: JokesViewModel, private val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<JokeViewPagerAdapter.ViewPagerViewHolder>() {
 
     private lateinit var dataValue: List<Joke>
 

@@ -16,8 +16,8 @@ android {
         targetSdk rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "com.dvt.chucknorrisjokes.HiltTestRunner"
+        buildConfigField("String", "API_URL", "\"" + getApiUrl() + "\"")
     }
 
     buildTypes {
@@ -30,7 +30,6 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
-
     }
 
     compileOptions {
@@ -80,6 +79,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha04")
     implementation("androidx.activity:activity-ktx:1.5.0-alpha03")
 
+    //LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.13.1'
 
@@ -120,4 +122,8 @@ dependencies {
 
     // Lottie Animation
     implementation "com.airbnb.android:lottie:$lottieVersion"
+}
+
+def getApiUrl() {
+    return project.findProperty("api_url")
 }

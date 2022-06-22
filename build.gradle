@@ -15,8 +15,8 @@ buildscript {
         junitVersion = "4.13.2"
         testExtJunitVersion = "1.1.3"
         espressoVersion = "3.4.0"
-        applicationVesrsion = "7.1.2"
-        androidLibraryVersion = "7.1.2"
+        applicationVesrsion = '7.2.0'
+        androidLibraryVersion = '7.2.0'
         kotlinVersion = "1.6.10"
         roomVersion = "2.4.2"
         retrofitVersion = "2.9.0"

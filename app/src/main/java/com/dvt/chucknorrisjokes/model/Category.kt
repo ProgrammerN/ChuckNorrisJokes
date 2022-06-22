@@ -20,9 +20,7 @@ class Category(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
-
         other as Category
-
         if (id != other.id) return false
         if (category != other.category) return false
 
@@ -34,6 +32,4 @@ class Category(
         result = 31 * result + category.hashCode()
         return result
     }
-
-
 }

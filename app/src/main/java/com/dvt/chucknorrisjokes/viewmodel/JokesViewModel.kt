@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -21,10 +22,10 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class JokesViewModel @Inject constructor(private val repositoryDefault: JokesRepository) : ViewModel() {
+class JokesViewModel @Inject constructor(private val jokesRepository: JokesRepository) : ViewModel() {
 
-    val joke = repositoryDefault.getRandomJoke()
-        .flowOn(Dispatchers.Default).asLiveData()
+    val joke = jokesRepository.getRandomJoke()
+        .flowOn(Dispatchers.IO).asLiveData()
 
     //FlowMutable search query text
     val searchQuery = MutableStateFlow("")
@@ -34,20 +35,20 @@ class JokesViewModel @Inject constructor(private val repositoryDefault: JokesRep
 
     //FlowMutable search results
     private val queryFlow = searchQuery.flatMapLatest {
-        repositoryDefault.getJokesFromQuery(it)
-    }.flowOn(Dispatchers.Default)
+        jokesRepository.getJokesFromQuery(it)
+    }.flowOn(Dispatchers.IO)
 
     //Random joke by search query as live data
     val queryJokeResults = queryFlow.asLiveData()
 
     //FlowMutable random joke by category
     private val randomJokesByCategoryFlow = searchCategory.flatMapLatest {
-        repositoryDefault.getJokesByCategory(it)
-    }.flowOn(Dispatchers.Default)
+        jokesRepository.getJokesByCategory(it)
+    }.flowOn(Dispatchers.IO)
 
     //Random joke by category as live data
     val categoryJokesResult = randomJokesByCategoryFlow
-        .flowOn(Dispatchers.Default)
+        .flowOn(Dispatchers.IO)
         .asLiveData()
 
     // Category Events
@@ -63,16 +64,16 @@ class JokesViewModel @Inject constructor(private val repositoryDefault: JokesRep
         jokesEventChannel.send(JokesEvent.NavigateToFavoriteJokesScreen)
     }
 
-    fun favoriteJoke(joke: FavoriteJoke) = viewModelScope.launch(Dispatchers.Default) {
-        repositoryDefault.favoriteJoke(joke)
+    fun favoriteJoke(joke: FavoriteJoke) = viewModelScope.launch(Dispatchers.IO) {
+        jokesRepository.favoriteJoke(joke)
     }
 
-    fun removeFavoriteJoke(joke: FavoriteJoke) = viewModelScope.launch(Dispatchers.Default) {
-        repositoryDefault.removeFavoriteJoke(joke)
+    fun removeFavoriteJoke(joke: FavoriteJoke) = viewModelScope.launch(Dispatchers.IO) {
+        jokesRepository.removeFavoriteJoke(joke)
     }
 
-    fun deleteAllFavorites() = viewModelScope.launch(Dispatchers.Default) {
-        repositoryDefault.deleteAllFavorites()
+    fun deleteAllFavorites() = viewModelScope.launch(Dispatchers.IO) {
+        jokesRepository.deleteAllFavorites()
     }
 
     sealed class JokesEvent {
@@ -84,20 +85,23 @@ class JokesViewModel @Inject constructor(private val repositoryDefault: JokesRep
     private val _favoriteJokes = MutableLiveData<List<FavoriteJoke>>()
 
     fun favoriteJokes(): MutableLiveData<List<FavoriteJoke>> {
-        viewModelScope.launch(Dispatchers.Default) {
-            repositoryDefault.getFavorites().collect { jokeResults ->
-                _favoriteJokes.postValue(jokeResults)
+        viewModelScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.IO){
+                jokesRepository.getFavorites().collect { jokeResults ->
+                    _favoriteJokes.postValue(jokeResults)
+                }
             }
         }
+
         return _favoriteJokes
     }
 
     val jokeId = MutableStateFlow("")
 
     private val isJokeByIdExist = jokeId.flatMapLatest {
-        repositoryDefault.favoriteExists(it)
-    }.flowOn(Dispatchers.Default)
+        jokesRepository.favoriteExists(it)
+    }.flowOn(Dispatchers.IO)
 
-    val isFavorite = isJokeByIdExist.flowOn(Dispatchers.Default).asLiveData()
+    val isFavorite = isJokeByIdExist.flowOn(Dispatchers.IO).asLiveData()
 
 }

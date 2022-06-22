@@ -20,13 +20,13 @@ open class DefaultJokesRepository @Inject constructor(private val apiService: Jo
     private val jokesJokeDao = db.JokeDao()
 
     override fun getRandomJoke() = networkBoundResource(
-        query = {
+        fetchFromLocal = {
             jokesJokeDao.getRandomJoke()
         },
-        fetch = {
+        fetchFromNetwork = {
             apiService.getRandomJoke()
         },
-        saveFetchResult = { jokes ->
+        offlineCacheResult = { jokes ->
             db.withTransaction {
                 jokesJokeDao.deleteAllJokes()
                 jokesJokeDao.insertJoke(jokes)
@@ -35,13 +35,13 @@ open class DefaultJokesRepository @Inject constructor(private val apiService: Jo
     )
 
     override fun getJokesFromQuery(searchQuery: String) = networkBoundResource(
-        query = {
+        fetchFromLocal = {
             jokesJokeDao.getJokeFromQuery(searchQuery)
         },
-        fetch = {
+        fetchFromNetwork = {
             apiService.getJokesByQuery(searchQuery)
         },
-        saveFetchResult = { jokes ->
+        offlineCacheResult = { jokes ->
             db.withTransaction {
                 jokesJokeDao.deleteAllJokes()
                 jokesJokeDao.insertJokes(jokes.result)
@@ -50,13 +50,13 @@ open class DefaultJokesRepository @Inject constructor(private val apiService: Jo
     )
 
     override fun getJokesCategories() = networkBoundResource(
-        query = {
+        fetchFromLocal = {
             jokesJokeDao.getCategories()
         },
-        fetch = {
+        fetchFromNetwork = {
             apiService.getJokesCategories()
         },
-        saveFetchResult = { categories ->
+        offlineCacheResult = { categories ->
             db.withTransaction {
                 jokesJokeDao.deleteAllCategories()
                 jokesJokeDao.insertCategories(categories.map { category ->
@@ -67,13 +67,13 @@ open class DefaultJokesRepository @Inject constructor(private val apiService: Jo
     )
 
     override fun getJokesByCategory(category: String) = networkBoundResource(
-        query = {
+        fetchFromLocal = {
             jokesJokeDao.getJokeByCategory(category)
         },
-        fetch = {
+        fetchFromNetwork = {
             apiService.getJokeByCategory(category)
         },
-        saveFetchResult = { joke ->
+        offlineCacheResult = { joke ->
             db.withTransaction {
                 jokesJokeDao.insertJoke(joke)
             }

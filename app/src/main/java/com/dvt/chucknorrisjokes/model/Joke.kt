@@ -39,6 +39,5 @@ data class Joke(
             Glide.with(imageViewIcon.context).load(iconUrl).into(imageViewIcon)
         }
     }
-
 }
 

@@ -10,8 +10,6 @@ import timber.log.Timber
  *
  * Also, sets up Timber in the DEBUG BuildConfig.
  */
-
-
 @HiltAndroidApp
 class JokesApplication : Application() {
 

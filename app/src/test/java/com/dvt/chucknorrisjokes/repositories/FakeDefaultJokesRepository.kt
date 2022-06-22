@@ -12,49 +12,49 @@ import kotlinx.coroutines.flow.flowOn
 class FakeDefaultJokesRepository(private val fakeDataSource: FakeDataSource) : JokesRepository {
 
     override fun getRandomJoke() = networkBoundResource(
-        query = {
+        fetchFromLocal = {
             fakeDataSource.queryRandomJoke()
         },
-        fetch = {
+        fetchFromNetwork = {
             fakeDataSource.queryRandomJoke()
         },
-        saveFetchResult = { _ ->
+        offlineCacheResult = {
 
         }
     ).flowOn(Dispatchers.Default)
 
     override fun getJokesFromQuery(searchQuery: String) = networkBoundResource(
-        query = {
+        fetchFromLocal = {
             fakeDataSource.getJokesFromQuery(searchQuery)
         },
-        fetch = {
+        fetchFromNetwork = {
             fakeDataSource.getJokesFromQuery(searchQuery)
         },
-        saveFetchResult = { _ ->
+        offlineCacheResult = {
 
         }
     ).flowOn(Dispatchers.Default)
 
     override fun getJokesCategories(): Flow<Resource<List<Category>>> = networkBoundResource(
-        query = {
+        fetchFromLocal = {
             fakeDataSource.queryCategories
         },
-        fetch = {
+        fetchFromNetwork = {
             fakeDataSource.queryCategories
         },
-        saveFetchResult = { _ ->
+        offlineCacheResult = {
 
         }
     ).flowOn(Dispatchers.Default)
 
     override fun getJokesByCategory(category: String) = networkBoundResource(
-        query = {
+        fetchFromLocal = {
             fakeDataSource.queryJokesByCategory(category)
         },
-        fetch = {
+        fetchFromNetwork = {
             fakeDataSource.queryJokesByCategory(category)
         },
-        saveFetchResult = { _ ->
+        offlineCacheResult = {
 
         }
     ).flowOn(Dispatchers.Default)

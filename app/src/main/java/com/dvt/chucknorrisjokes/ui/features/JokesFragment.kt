@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.dvt.chucknorrisjokes.R
-import com.dvt.chucknorrisjokes.adapters.ViewPagerAdapter
+import com.dvt.chucknorrisjokes.adapters.JokeViewPagerAdapter
 import com.dvt.chucknorrisjokes.databinding.FragmentJokesBinding
 import com.dvt.chucknorrisjokes.extentions.onQueryTextChanged
 import com.dvt.chucknorrisjokes.model.Category
@@ -37,7 +37,7 @@ class JokesFragment : Fragment(R.layout.fragment_jokes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentJokesBinding.bind(view)
-        val jokeAdapter = ViewPagerAdapter(viewModel, viewLifecycleOwner)
+        val jokeAdapter = JokeViewPagerAdapter(viewModel, viewLifecycleOwner)
 
         binding.apply {
             viewPager.apply {
@@ -46,10 +46,8 @@ class JokesFragment : Fragment(R.layout.fragment_jokes) {
             }
             viewModel.joke.observe(viewLifecycleOwner) { result ->
                 Timber.d("Status $result")
-
                 result.data?.let {
                     jokeAdapter.setJoke(it)
-
                 }
                 progressBar.isVisible = result is Resource.Loading && result.data == null
                 textViewError.isVisible = result is Resource.Error && result.data == null
@@ -97,20 +95,15 @@ class JokesFragment : Fragment(R.layout.fragment_jokes) {
                 }
             }
         }
-
         setHasOptionsMenu(true)
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_fragment_jokes, menu)
-
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem.actionView as SearchView
-
-        searchView.onQueryTextChanged {
-            viewModel.searchQuery.value = it
-        }
+        searchView.onQueryTextChanged { viewModel.searchQuery.value = it }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
