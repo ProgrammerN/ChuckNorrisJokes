@@ -86,10 +86,8 @@ class JokesViewModel @Inject constructor(private val jokesRepository: JokesRepos
 
     fun favoriteJokes(): MutableLiveData<List<FavoriteJoke>> {
         viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.IO){
-                jokesRepository.getFavorites().collect { jokeResults ->
-                    _favoriteJokes.postValue(jokeResults)
-                }
+            jokesRepository.getFavorites().collect { jokeResults ->
+                _favoriteJokes.postValue(jokeResults)
             }
         }
 
